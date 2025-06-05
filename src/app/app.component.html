@@ -1,0 +1,17 @@
+
+<mat-toolbar color="primary">
+  <span>Sistema de Recrutamento Inteligente</span>
+  <span class="toolbar-spacer"></span>
+  <!-- Add navigation buttons here if needed -->
+  <button mat-button routerLink="/vacancies">Vagas</button>
+  <button mat-button routerLink="/candidate/profile">Meu Perfil</button>
+  <button mat-button routerLink="/rh">Painel RH</button>
+  <button mat-button  (click)="handleAuthAction()">
+    {{ (authService.isLoggedIn | async) ? 'logout' : 'login' }}
+  </button>
+</mat-toolbar>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+

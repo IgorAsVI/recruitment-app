@@ -1,0 +1,40 @@
+
+<mat-card class="upload-card">
+  <mat-card-header>
+    <mat-card-title>Carregar Currículo (PDF)</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="uploadMessage" class="alert alert-success" role="alert">
+      {{ uploadMessage }}
+    </div>
+
+    <div class="file-input-container">
+      <button mat-stroked-button color="primary" (click)="fileInput.click()">
+        <mat-icon>attach_file</mat-icon>
+        Selecionar Ficheiro PDF
+      </button>
+      <input hidden type="file" #fileInput accept=".pdf" (change)="onFileSelected($event)">
+      <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="onUpload()" [disabled]="!selectedFile || loading" class="upload-button">
+      <mat-spinner *ngIf="loading" diameter="20" class="button-spinner"></mat-spinner>
+      <span *ngIf="!loading">Carregar Currículo</span>
+    </button>
+
+    <div *ngIf="currentResumePath" class="current-resume-info">      <p><strong>Currículo Atual:</strong> {{ getFileName(currentResumePath) }}</p>
+      <!-- Add a link to view/download if backend supports it -->
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h4>Currículo Reserva</h4>
+    <p>Se não encontrou vagas do seu interesse no momento, pode deixar o seu currículo connosco para futuras oportunidades.</p>
+
+  </mat-card-content>
+</mat-card>
+

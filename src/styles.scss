@@ -1,0 +1,372 @@
+
+// Import Angular Material theming
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define o tema usando a abordagem simplificada para Angular Material v18+
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+  )
+));
+
+// Include theme styles for core and all components used in your app.
+// Para Material 3, os mixins de tema devem estar dentro de um seletor
+:root {
+  @include mat.all-component-themes($theme);
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--mat-sys-color-background); // Use theme background
+  color: var(--mat-sys-color-on-background); // Use theme text color
+}
+
+/* Global helper styles */
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+mat-card {
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  flex: 1;
+}
+
+.form-field-small {
+  flex: 0 0 120px;
+}
+
+.form-field-flex {
+  flex: 1;
+}
+
+.form-array-item {
+  padding: 16px;
+  border: 1px solid var(--mat-sys-color-outline-variant); // Use theme outline color
+  border-radius: 4px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.form-array-item-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.add-button {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.submit-button-container {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.error-message {
+  color: var(--mat-sys-color-error); // Use CSS variable for error color
+  margin: 10px 0;
+  text-align: center;
+}
+
+.success-message { // Added for success feedback
+  color: var(--mat-sys-color-primary); // Use CSS variable for primary color
+  margin: 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.button-spinner {
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .form-field-small {
+    flex: 1;
+  }
+}
+
+/* Score Badge Styles */
+.score-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: var(--mat-sys-color-on-primary); // Ensure text is readable on colored background
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-left: 8px;
+}
+
+.score-high {
+  background-color: var(--mat-sys-color-primary);
+}
+
+.score-medium {
+   background-color: var(--mat-sys-color-tertiary);
+   color: var(--mat-sys-color-on-tertiary);
+}
+
+.score-low {
+  background-color: var(--mat-sys-color-error);
+  color: var(--mat-sys-color-on-error);
+}
+
+/* Vacancy/Recommended Job List Item Styles */
+.recommended-job-item,
+.vacancy-item {
+  height: auto !important; // Override default height
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  border-bottom: 1px solid var(--mat-sys-color-outline-variant);
+
+  .mat-mdc-list-item-unscoped-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+
+.job-title-line,
+.vacancy-title-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.vacancy-title,
+.job-title {
+  font-weight: 500;
+}
+
+.vacancy-subtitle,
+.job-details {
+  color: var(--mat-sys-color-on-surface-variant); // Use a variant color for subtitles
+  font-size: 0.9em;
+  margin-bottom: 8px;
+}
+
+.vacancy-description,
+.job-description {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: var(--mat-sys-color-on-surface); // Standard text color
+  white-space: normal;
+}
+
+.vacancy-date {
+  font-size: 0.8em;
+  color: var(--mat-sys-color-on-surface-variant);
+  margin-top: 8px;
+}
+
+.vacancy-actions,
+.job-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+/* Message Styles */
+.no-vacancies-message,
+.no-candidates-message,
+.no-recommendations-message {
+  text-align: center;
+  padding: 30px;
+  color: var(--mat-sys-color-on-surface-variant);
+  font-style: italic;
+}
+
+/* Filter Panel Styles */
+.filter-panel {
+  margin-bottom: 20px;
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.filter-field {
+  flex: 1 1 200px;
+}
+
+.filter-actions {
+  flex-basis: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Auth Component Styles */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  min-height: calc(100vh - 64px - 40px); // Adjust based on toolbar height
+}
+
+.auth-card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.register-link,
+.login-link {
+  text-align: center;
+  margin-top: 16px;
+  a {
+    color: var(--mat-sys-color-primary);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Profile Component Styles */
+.profile-container {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.section-title {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.reserve-checkbox {
+  margin-bottom: 16px;
+}
+
+.interests-section {
+  margin-top: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--mat-sys-color-primary-container);
+}
+
+/* Resume Upload Styles */
+.upload-card {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.file-input-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.file-name {
+  font-style: italic;
+  color: var(--mat-sys-color-on-surface-variant);
+}
+
+.upload-button {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.current-resume-info {
+  margin-top: 16px;
+  padding: 10px;
+  background-color: var(--mat-sys-color-surface-container-lowest); // Use a subtle background
+  border-radius: 4px;
+}
+
+/* RH Panel Styles */
+.rh-panel-container {
+   max-width: 1200px;
+   margin: 20px auto;
+}
+
+.vacancy-selector {
+  margin-bottom: 20px;
+}
+
+.candidates-table {
+  width: 100%;
+}
+
+// Center align specific columns in the table
+.mat-mdc-header-cell.mat-column-ranking,
+.mat-mdc-cell.mat-column-ranking,
+.mat-mdc-header-cell.mat-column-score,
+.mat-mdc-cell.mat-column-score,
+.mat-mdc-header-cell.mat-column-actions,
+.mat-mdc-cell.mat-column-actions {
+  text-align: center;
+}
+
+.mat-column-ranking,
+.mat-column-score {
+  width: 100px;
+}
+
+.mat-column-actions {
+  width: 120px;
+}
+
+/* Recommended Jobs Styles */
+.recommended-jobs-container {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.recommended-job-item {
+  // Styles inherited from .vacancy-item
+}
+

@@ -1,0 +1,228 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-toolbar {
+  flex-shrink: 0; // Prevent toolbar from shrinking
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  flex: 1; // Allow content to grow and fill available space
+  padding: 20px; // Add some padding around the main content area
+  overflow-y: auto; // Add scroll if content overflows
+}
+
+/* General Material component adjustments if needed */
+mat-card {
+  margin-bottom: 20px; // Add space between cards
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px; // Space between fields in a row
+  margin-bottom: 16px;
+}
+
+.form-field {
+  flex: 1; // Make fields share space equally
+}
+
+.form-field-small {
+  flex: 0 0 120px; // Fixed width for smaller fields like 'years'
+}
+
+.form-field-flex {
+    flex: 1;
+}
+
+.form-array-item {
+  padding: 16px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  position: relative; // For positioning remove button
+}
+
+.form-array-item-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.add-button {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.submit-button-container {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.error-message {
+  color: var(--mat-sys-color-error);
+  margin: 10px 0;
+  text-align: center;
+}
+
+.button-spinner {
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .form-field-small {
+    flex: 1; // Allow small fields to take full width on small screens
+  }
+}
+
+/* RH Panel Score Badges */
+.score-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.score-high {
+  background-color: #4CAF50;
+}
+
+.score-medium {
+  background-color: #FF9800;
+}
+
+.score-low {
+  background-color: var(--mat-sys-color-error);
+}
+
+/* Vacancy List adjustments */
+.vacancy-item {
+    height: auto !important; // Allow list items to grow
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.vacancy-title {
+    font-weight: 500;
+}
+
+.vacancy-subtitle {
+    color: rgba(0,0,0,.54);
+    font-size: 0.9em;
+}
+
+.vacancy-description {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: rgba(0,0,0,.87);
+}
+
+.vacancy-date {
+    font-size: 0.8em;
+    color: rgba(0,0,0,.54);
+}
+
+.vacancy-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.apply-button {
+    margin-left: auto; /* Push apply button to the right */
+}
+
+.no-vacancies-message, .no-candidates-message {
+    text-align: center;
+    padding: 30px;
+    color: rgba(0,0,0,.54);
+    font-style: italic;
+}
+
+/* Filter Panel */
+.filter-panel {
+    margin-bottom: 20px;
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+.filter-field {
+    flex: 1 1 200px; /* Allow fields to grow but have a base size */
+}
+
+.filter-actions {
+    flex-basis: 100%; /* Make actions take full width */
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* Auth forms */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    min-height: calc(100vh - 64px - 40px); /* Adjust based on toolbar height and padding */
+}
+
+.auth-card {
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Profile form specific */
+.profile-container {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.section-title {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.reserve-checkbox {
+    margin-bottom: 16px;
+}
+
+.interests-section {
+    margin-top: 16px;
+    padding-left: 16px;
+    border-left: 2px solid var(--mat-sys-color-primary-container);
+}
+
+

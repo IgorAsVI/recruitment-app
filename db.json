@@ -1,0 +1,173 @@
+{
+  "vacancies": [
+    {
+      "id": "1",
+      "title": "Desenvolvedor Frontend Angular Pleno",
+      "description": "Procuramos um desenvolvedor Frontend com experiência em Angular para se juntar à nossa equipa inovadora.",
+      "area": "Tecnologia",
+      "type": "Tempo Integral",
+      "location": "Lisboa, Portugal",
+      "requirements": [
+        "Angular 12+",
+        "TypeScript",
+        "RxJS",
+        "HTML5",
+        "CSS3/SCSS",
+        "Git"
+      ],
+      "postedDate": "2025-06-01"
+    },
+    {
+      "id": "2",
+      "title": "Analista de Marketing Digital",
+      "description": "Vaga para profissional de marketing digital com foco em SEO e campanhas pagas.",
+      "area": "Marketing",
+      "type": "Tempo Integral",
+      "location": "Porto, Portugal",
+      "requirements": [
+        "SEO",
+        "Google Ads",
+        "Facebook Ads",
+        "Google Analytics",
+        "Marketing de Conteúdo"
+      ],
+      "postedDate": "2025-06-03"
+    },
+    {
+      "id": "3",
+      "title": "Estágio em Recursos Humanos",
+      "description": "Oportunidade de estágio para estudantes de RH ou Psicologia Organizacional.",
+      "area": "Recursos Humanos",
+      "type": "Estágio",
+      "location": "Remoto",
+      "requirements": [
+        "Cursando RH ou Psicologia",
+        "Boa comunicação",
+        "Proatividade"
+      ],
+      "postedDate": "2025-06-04"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "101",
+      "name": "Ana Silva",
+      "email": "ana.silva@email.com",
+      "password": "password123",
+      "phone": "912345678",
+      "address": "Rua Exemplo, 123, Lisboa",
+      "linkedin": "linkedin.com/in/anasilva",
+      "experiences": [
+        {
+          "company": "Empresa X",
+          "role": "Desenvolvedor Frontend Jr",
+          "years": 2
+        }
+      ],
+      "education": [
+        {
+          "institution": "Universidade Y",
+          "course": "Engenharia Informática",
+          "level": "Licenciatura"
+        }
+      ],
+      "skills": [
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "resume_pdf_path": null,
+      "is_reserve": false,
+      "interests": [
+        "Tecnologia",
+        "Desenvolvimento Web"
+      ]
+    },
+    {
+      "id": "102",
+      "name": "Carlos Pereira",
+      "email": "carlos.pereira@email.com",
+      "password": "password456",
+      "phone": "923456789",
+      "address": "Avenida Teste, 456, Porto",
+      "linkedin": null,
+      "experiences": [],
+      "education": [
+        {
+          "institution": "Escola Z",
+          "course": "Marketing Digital",
+          "level": "Curso Técnico"
+        }
+      ],
+      "skills": [
+        "SEO",
+        "Google Ads",
+        "Social Media"
+      ],
+      "resume_pdf_path": "/path/to/carlos_cv.pdf",
+      "is_reserve": false,
+      "interests": [
+        "Marketing",
+        "Publicidade"
+      ]
+    },
+    {
+      "id": "103",
+      "name": "Mariana Costa",
+      "email": "mariana.costa@email.com",
+      "password": "password789",
+      "phone": "934567890",
+      "address": "Travessa Modelo, 789, Coimbra",
+      "linkedin": "linkedin.com/in/marianacosta",
+      "experiences": [],
+      "education": [],
+      "skills": [],
+      "resume_pdf_path": null,
+      "is_reserve": true,
+      "interests": [
+        "Recursos Humanos",
+        "Gestão de Pessoas"
+      ]
+    }
+  ],
+  "rh_users": [
+    {
+      "id": "1",
+      "name": "Gestor RH",
+      "email": "rh@empresa.com",
+      "password": "rhpassword"
+    }
+  ],
+  "applications": [
+    {
+      "id": "1",
+      "candidateId": 101,
+      "vacancyId": 1,
+      "applicationDate": "2025-06-05",
+      "score": null
+    },
+    {
+      "id": "2",
+      "candidateId": 102,
+      "vacancyId": 2,
+      "applicationDate": "2025-06-05",
+      "score": null
+    },
+    {
+      "id": "5bfc",
+      "candidateId": "1",
+      "vacancyId": "1",
+      "applicationDate": "2025-06-05T03:12:46.174Z",
+      "status": "Recebido"
+    },
+    {
+      "id": "e7bb",
+      "candidateId": "1",
+      "vacancyId": "2",
+      "applicationDate": "2025-06-05T03:12:50.925Z",
+      "status": "Recebido"
+    }
+  ]
+}

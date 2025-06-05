@@ -1,0 +1,60 @@
+
+<mat-card class="recommended-jobs-container">
+  <mat-card-header>
+    <mat-card-title>Vagas Recomendadas para Si</mat-card-title>
+    <mat-card-subtitle>Com base nas suas competências registadas no perfil.</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading-indicator">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage && !loading" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Recommended Jobs List -->
+    <div *ngIf="recommendedJobs$ | async as jobs; else noRecommendations">
+      <div *ngIf="!loading && jobs.length > 0">
+        <mat-list>
+          <mat-list-item *ngFor="let job of jobs" class="recommended-job-item">
+            <div matListItemTitle class="job-title-line">
+              <span>{{ job.title }}</span>
+              <span class="score-badge" [ngClass]="{
+                  'score-high': job.matchScore >= 75,
+                  'score-medium': job.matchScore >= 50 && job.matchScore < 75,
+                  'score-low': job.matchScore < 50
+                }">{{ job.matchScore }}% Match</span>
+            </div>
+            <div matListItemLine class="job-details">
+              <span>{{ job.location }} | {{ job.type }} | Área: {{ job.area }}</span>
+            </div>
+            <div matListItemLine class="job-description">
+              {{ job.description | slice:0:150 }}...
+            </div>
+             <div matListItemMeta class="job-actions">
+               <button mat-stroked-button color="primary" (click)="viewDetails(job.id)">Ver Detalhes</button>
+               <!-- Add Apply button if needed, potentially calling the apply method from VacancyListComponent logic -->
+               <!-- <button mat-flat-button color="accent" (click)="apply(job.id)">Candidatar-se</button> -->
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+       <div *ngIf="!loading && jobs.length === 0" class="no-recommendations-message">
+          Nenhuma vaga recomendada encontrada com base no seu perfil atual. Preencha as suas competências no perfil para ver recomendações.
+       </div>
+    </div>
+
+    <!-- No Recommendations Template -->
+    <ng-template #noRecommendations>
+      <div *ngIf="!loading && !errorMessage" class="no-recommendations-message">
+        Preencha as suas competências no seu perfil para receber vagas recomendadas.
+      </div>
+    </ng-template>
+
+  </mat-card-content>
+</mat-card>
+

@@ -1,0 +1,177 @@
+
+<div class="profile-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Meu Perfil</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-indicator">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+
+      <div *ngIf="errorMessage && !loading" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage && !loading" class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+
+        <h4 class="section-title">Informações Pessoais</h4>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nome Completo</mat-label>
+            <input matInput formControlName="name" required>
+            <mat-error *ngIf="f['name']?.hasError('required')">Nome completo é obrigatório</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" readonly>
+            <mat-hint align="end">O email não pode ser alterado.</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="phone" type="tel" required>
+             <mat-error *ngIf="f['phone']?.hasError('required')">Telefone é obrigatório</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Morada</mat-label>
+            <input matInput formControlName="address">
+          </mat-form-field>
+        </div>
+
+         <mat-form-field appearance="outline" class="full-width-field">
+            <mat-label>Perfil LinkedIn (URL)</mat-label>
+            <input matInput formControlName="linkedin" type="url">
+          </mat-form-field>
+
+        <mat-divider></mat-divider>
+
+        <h4 class="section-title">Experiência Profissional</h4>
+        <div formArrayName="experiences">
+          <div *ngFor="let exp of experiences.controls; let i=index" [formGroupName]="i" class="form-array-item">
+            <h5>Experiência {{ i + 1 }}</h5>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Empresa</mat-label>
+                <input matInput formControlName="company" required>
+                 <mat-error *ngIf="exp.get('company')?.hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Cargo</mat-label>
+                <input matInput formControlName="role" required>
+                 <mat-error *ngIf="exp.get('role')?.hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="form-field-small">
+                <mat-label>Anos</mat-label>
+                <input matInput formControlName="years" type="number" min="0">
+                 <mat-error *ngIf="exp.get('years')?.invalid && exp.get('years')?.touched">Valor inválido</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="warn" type="button" (click)="removeExperience(i)" aria-label="Remover experiência">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button mat-stroked-button type="button" (click)="addExperience()" class="add-button">
+          <mat-icon>add</mat-icon> Adicionar Experiência
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <h4 class="section-title">Formação Académica</h4>
+         <div formArrayName="education">
+          <div *ngFor="let edu of education.controls; let i=index" [formGroupName]="i" class="form-array-item">
+            <h5>Formação {{ i + 1 }}</h5>
+             <div class="form-row">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Instituição</mat-label>
+                <input matInput formControlName="institution" required>
+                 <mat-error *ngIf="edu.get('institution')?.hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Curso</mat-label>
+                <input matInput formControlName="course" required>
+                 <mat-error *ngIf="edu.get('course')?.hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="form-field-small">
+                <mat-label>Nível</mat-label>
+                <input matInput formControlName="level" placeholder="Ex: Licenciatura" required>
+                 <mat-error *ngIf="edu.get('level')?.hasError('required')">Campo obrigatório</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="warn" type="button" (click)="removeEducation(i)" aria-label="Remover formação">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button mat-stroked-button type="button" (click)="addEducation()" class="add-button">
+           <mat-icon>add</mat-icon> Adicionar Formação
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <h4 class="section-title">Competências</h4>
+        <div formArrayName="skills">
+           <div *ngFor="let skill of skills.controls; let i=index" class="form-array-item-row">
+              <mat-form-field appearance="outline" class="form-field-flex">
+                 <mat-label>Competência {{ i + 1 }}</mat-label>
+                 <input matInput [formControlName]="i" placeholder="Ex: Angular, Liderança" required>
+                  <mat-error *ngIf="skill.hasError('required')">Competência não pode estar vazia</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="warn" type="button" (click)="removeSkill(i)" aria-label="Remover competência">
+                <mat-icon>delete</mat-icon>
+              </button>
+           </div>
+        </div>
+        <button mat-stroked-button type="button" (click)="addSkill()" class="add-button">
+           <mat-icon>add</mat-icon> Adicionar Competência
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <h4 class="section-title">Currículo Reserva</h4>
+         <mat-checkbox formControlName="is_reserve" class="reserve-checkbox">
+           Desejo manter o meu currículo em base de dados para futuras oportunidades (currículo reserva).
+         </mat-checkbox>
+
+        <div *ngIf="f['is_reserve']?.value" class="interests-section">
+            <h5>Áreas de Interesse Futuro</h5>
+             <div formArrayName="interests">
+                <div *ngFor="let interest of interests.controls; let i=index" class="form-array-item-row">
+                    <mat-form-field appearance="outline" class="form-field-flex">
+                        <mat-label>Interesse {{ i + 1 }}</mat-label>
+                        <input matInput [formControlName]="i" placeholder="Ex: Gestão de Projetos, IA" required>
+                         <mat-error *ngIf="interest.hasError('required')">Interesse não pode estar vazio</mat-error>
+                    </mat-form-field>
+                    <button mat-icon-button color="warn" type="button" (click)="removeInterest(i)" aria-label="Remover interesse">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <button mat-stroked-button type="button" (click)="addInterest()" class="add-button">
+               <mat-icon>add</mat-icon> Adicionar Interesse
+            </button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="submit-button-container">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading || profileForm.invalid">
+            <mat-spinner *ngIf="loading" diameter="20" class="button-spinner"></mat-spinner>
+            <span *ngIf="!loading">Guardar Alterações</span>
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
