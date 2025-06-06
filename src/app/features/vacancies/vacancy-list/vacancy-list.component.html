@@ -1,4 +1,3 @@
-
 <div class="vacancy-list-container">
   <!-- Loading Indicator -->
   <div *ngIf="loading" class="loading-indicator">
@@ -10,22 +9,40 @@
     {{ errorMessage }}
   </div>
 
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+
   <!-- Vacancy List -->
   <div *ngIf="vacancies$ | async as vacancies">
     <div *ngIf="!loading && vacancies.length > 0">
       <mat-list>
         <mat-list-item *ngFor="let vacancy of vacancies" class="vacancy-item">
-          <div matListItemTitle class="vacancy-title">{{ vacancy.title }}</div>
-          <div matListItemLine class="vacancy-subtitle">{{ vacancy.location }} | {{ vacancy.type }} | Área: {{ vacancy.area }}</div>
-          <div matListItemLine class="vacancy-description">{{ vacancy.description | slice:0:150 }}...</div>
-          <div matListItemLine class="vacancy-date"><small>Publicado em: {{ vacancy.postedDate | date:'dd/MM/yyyy' }}</small></div>
-          <div matListItemMeta class="vacancy-actions">
-             
-            <button mat-stroked-button color="primary" (click)="viewDetails(vacancy.id)">Ver Detalhes</button>
-            <button mat-raised-button color="accent" (click)="apply(vacancy.id)" class="apply-button">Candidatar-se</button>
+          <div class="vacancy-content">
+            <div class="vacancy-title">{{ vacancy.title }}</div>
+            <div class="vacancy-subtitle">
+              <span class="location">{{ vacancy.location }}</span>
+              <span class="separator">|</span>
+              <span class="type">{{ vacancy.type }}</span>
+              <span class="separator">|</span>
+              <span class="area">Área: {{ vacancy.area }}</span>
+            </div>
+            <div class="vacancy-description">{{ vacancy.description | slice:0:150 }}...</div>
+            <div class="vacancy-date">
+              <small>Publicado em: {{ vacancy.postedDate | date:'dd/MM/yyyy' }}</small>
+            </div>
+            <div class="vacancy-actions">
+              <button mat-stroked-button class="ver-detalhes" (click)="viewDetails(vacancy.id)">
+                Ver Detalhes
+              </button>
+              <button mat-raised-button class="apply-button" (click)="apply(vacancy.id)">
+                Candidatar-se
+              </button>
+            </div>
           </div>
         </mat-list-item>
-         <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
       </mat-list>
     </div>
 
@@ -35,10 +52,9 @@
     </div>
   </div>
 
-   <!-- Initial state or error loading -->
-   <div *ngIf="!(vacancies$ | async) && !loading && !errorMessage" class="no-vacancies-message">
-      Utilize os filtros para procurar vagas.
-   </div>
-
+  <!-- Initial state or error loading -->
+  <div *ngIf="!(vacancies$ | async) && !loading && !errorMessage" class="no-vacancies-message">
+    Utilize os filtros para procurar vagas.
+  </div>
 </div>
 

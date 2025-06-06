@@ -1,46 +1,43 @@
-
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiService } from '../../../core/services/api.service'; // Adjust path as needed
+import { Vacancy } from '../models/vacancy.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root' // Provide in root or in VacanciesModule if preferred
+  providedIn: 'root'
 })
 export class VacancyService {
+  private apiUrl = `${environment.apiUrl}/vacancies`;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private http: HttpClient) {}
 
-  getVacancies(filters?: any): Observable<any[]> {
-    // Construct query parameters based on filters
-    let params: any = {};
-    let test: any = {};
+  getVacancies(filters?: any): Observable<Vacancy[]> {
+    let params = new HttpParams();
     if (filters) {
-      if (filters.area) {
-        params.area = filters.area;
-      }
-      if (filters.type) {
-        params.type = filters.type;
-      }
-      if (filters.location) {
-        // Use q for full-text search or specific field if API supports it
-        params.location_like = filters.location; // Example: use location_like for partial match
-      }
-      // Add other filters as needed
+      Object.keys(filters).forEach(key => {
+        if (filters[key]) {
+          params = params.append(key, filters[key]);
+        }
+      });
     }
-    test =  this.apiService.getVacancies(params);
-    console.log('====================================');
-    console.log(JSON.stringify(test));
-    console.log('====================================');
-    return test;
+    return this.http.get<Vacancy[]>(this.apiUrl, { params });
   }
 
-  getVacancyById(id: number): Observable<any> {
-    return this.apiService.getVacancyById(id);
+  getVacancyById(id: number): Observable<Vacancy> {
+    return this.http.get<Vacancy>(`${this.apiUrl}/${id}`);
   }
 
-  // Add methods for applying to a vacancy if needed here or in a separate ApplicationService
-  applyToVacancy(applicationData: any): Observable<any> {
-    return this.apiService.addApplication(applicationData);
+  createVacancy(vacancy: Omit<Vacancy, 'id'>): Observable<Vacancy> {
+    return this.http.post<Vacancy>(this.apiUrl, vacancy);
+  }
+
+  updateVacancy(id: number, vacancy: Partial<Vacancy>): Observable<Vacancy> {
+    return this.http.patch<Vacancy>(`${this.apiUrl}/${id}`, vacancy);
+  }
+
+  deleteVacancy(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
 

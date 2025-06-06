@@ -46,6 +46,20 @@
         "Proatividade"
       ],
       "postedDate": "2025-06-04"
+    },
+    {
+      "id": "4",
+      "title": "Estágio em Recursos Humanos",
+      "description": "Oportunidade de estágio para estudantes de RH ou Psicologia Organizacional.",
+      "area": "Recursos Humanos",
+      "type": "Estágio",
+      "location": "Remoto",
+      "requirements": [
+        "Cursando RH ou Psicologia",
+        "Boa comunicação",
+        "Proatividade"
+      ],
+      "postedDate": "2025-06-04"
     }
   ],
   "candidates": [

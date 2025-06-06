@@ -1,2 +1,27 @@
-<app-vacancy-list></app-vacancy-list>
-<app-vacancy-filter></app-vacancy-filter>
+<div class="vacancies-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1>Sistema de Recrutamento Inteligente</h1>
+      <p>Conectamos talentos às melhores empresas de tecnologia</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="search-card filter-card">
+      <app-vacancy-filter></app-vacancy-filter>
+    </div>
+
+    <div class="section-header available-card">
+      <div class="header-content">
+        <h2>Vagas Disponíveis</h2>
+        <span class="vacancy-count">{{ (vacancyList?.vacancies$ | async)?.length || 0 }} vagas encontradas</span>
+      </div>
+    </div>
+    
+    <div class="vacancies-section">
+      <app-vacancy-list #vacancyList></app-vacancy-list>
+    </div>
+  </div>
+</div>

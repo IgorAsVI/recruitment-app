@@ -1,10 +1,10 @@
-
 import { Component, OnInit } from '@angular/core';
 import { VacancyService } from '../services/vacancy.service';
 import { Observable } from 'rxjs';
 import { CandidateService } from '../../candidate/services/candidate.service'; // Import CandidateService
 import { AuthService } from '../../../core/services/auth.service'; // Import AuthService
 import { switchMap, take } from 'rxjs/operators';
+import { Vacancy } from '../models/vacancy.model';
 
 @Component({
   selector: 'app-vacancy-list',
@@ -12,9 +12,9 @@ import { switchMap, take } from 'rxjs/operators';
   styleUrls: ['./vacancy-list.component.scss']
 })
 export class VacancyListComponent implements OnInit {
-  vacancies$: Observable<any[]> | undefined;
+  vacancies$: Observable<Vacancy[]>;
   loading = false;
-  errorMessage = '';
+  errorMessage: string | null = null;
   successMessage = ''; // Add success message property
   currentFilters: any = {};
   userId: number | null = null;
@@ -23,7 +23,9 @@ export class VacancyListComponent implements OnInit {
     private vacancyService: VacancyService,
     private candidateService: CandidateService, // Inject CandidateService
     private authService: AuthService // Inject AuthService
-  ) { }
+  ) {
+    this.vacancies$ = this.vacancyService.getVacancies();
+  }
 
   ngOnInit(): void {
     this.loadVacancies();
@@ -36,7 +38,7 @@ export class VacancyListComponent implements OnInit {
 
   loadVacancies(filters: any = {}): void {
     this.loading = true;
-    this.errorMessage = '';
+    this.errorMessage = null;
     this.successMessage = ''; // Clear success message on load
     this.currentFilters = filters; // Store current filters
     this.vacancies$ = this.vacancyService.getVacancies(filters);

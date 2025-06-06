@@ -44,6 +44,14 @@ body {
 
 mat-card {
   margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .full-width {
@@ -131,12 +139,14 @@ mat-card {
 
 /* Score Badge Styles */
 .score-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
+  padding: 6px 12px;
+  border-radius: 16px;
   color: var(--mat-sys-color-on-primary); // Ensure text is readable on colored background
-  font-weight: bold;
+  font-weight: 600;
   font-size: 0.8em;
   margin-left: 8px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .score-high {
@@ -226,6 +236,10 @@ mat-card {
 /* Filter Panel Styles */
 .filter-panel {
   margin-bottom: 20px;
+  background-color: var(--mat-sys-color-surface);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filter-controls {
@@ -368,5 +382,121 @@ mat-card {
 
 .recommended-job-item {
   // Styles inherited from .vacancy-item
+}
+
+/* Modern Button Styles */
+.mat-mdc-button,
+.mat-mdc-raised-button {
+  border-radius: 8px;
+  padding: 8px 24px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* Modern Form Field Styles */
+.mat-mdc-form-field {
+  .mat-mdc-form-field-flex {
+    border-radius: 8px;
+  }
+}
+
+/* Modern List Styles */
+.mat-mdc-list {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Modern Table Styles */
+.mat-mdc-table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .mat-mdc-header-row {
+    background-color: var(--mat-sys-color-surface-variant);
+  }
+
+  .mat-mdc-row {
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--mat-sys-color-surface-variant);
+    }
+  }
+}
+
+/* Modern Dialog Styles */
+.mat-mdc-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 16px;
+    padding: 24px;
+  }
+}
+
+/* Modern Toolbar Styles */
+.mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern Loading Spinner */
+.loading-indicator {
+  .mat-mdc-progress-spinner {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .filter-controls {
+    padding: 12px;
+  }
+
+  .form-row {
+    gap: 12px;
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--mat-sys-color-surface-variant);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mat-sys-color-outline);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mat-sys-color-outline-variant);
 }
 
