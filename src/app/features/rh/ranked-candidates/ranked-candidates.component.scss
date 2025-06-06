@@ -9,7 +9,7 @@ mat-card {
   border: 1px solid #e1bee7;
   overflow: visible;
   width: 100%;
-  max-width: 700px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0;
 }
@@ -58,33 +58,78 @@ mat-card-content {
 
 .candidates-table-container {
   margin-top: 24px;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(103, 58, 183, 0.06);
-  padding: 24px 24px 16px 24px;
+  background: linear-gradient(120deg, #f3e5f5 60%, #e3f2fd 100%);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(103, 58, 183, 0.13);
+  padding: 32px 32px 24px 32px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
+  overflow-x: auto;
+  display: block;
 }
 
 .candidates-table-container h4 {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: #512da8;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
   text-align: left;
+  letter-spacing: 0.5px;
+}
+
+::ng-deep table.mat-table {
+  width: 100%;
+  min-width: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: none;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+::ng-deep .mat-header-row, ::ng-deep .mat-header-cell {
+  background: #ede7f6 !important;
+  color: #512da8 !important;
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: 2px solid #e1bee7;
+}
+
+::ng-deep .mat-row {
+  transition: background 0.2s;
+}
+
+::ng-deep .mat-row:nth-child(even) {
+  background: #f7f7fa;
+}
+
+::ng-deep .mat-row:hover {
+  background: #ede7f6;
+}
+
+::ng-deep .mat-cell {
+  font-size: 0.98rem;
+  padding: 12px 8px;
+  border-bottom: 1px solid #e1bee7;
+}
+
+::ng-deep .mat-header-cell {
+  padding: 14px 8px;
 }
 
 .score-badge {
   display: inline-block;
   min-width: 38px;
-  padding: 4px 10px;
+  padding: 4px 14px;
   border-radius: 16px;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(67, 160, 71, 0.10);
   &.score-high {
     background: #43a047;
     color: #fff;
@@ -97,6 +142,36 @@ mat-card-content {
     background: #e53935;
     color: #fff;
   }
+}
+
+::ng-deep .mat-column-actions {
+  text-align: center;
+}
+::ng-deep .mat-icon-button {
+  color: #fff;
+  background: #512da8;
+  border-radius: 50%;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(103, 58, 183, 0.18);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+::ng-deep .mat-icon-button:hover {
+  background: #9575cd;
+  box-shadow: 0 4px 16px rgba(103, 58, 183, 0.22);
+}
+::ng-deep .mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .no-candidates-message {
@@ -128,13 +203,20 @@ mat-card-content {
   mat-card {
     max-width: 98vw;
   }
+  ::ng-deep table.mat-table {
+    min-width: 0;
+    font-size: 0.95rem;
+  }
+  ::ng-deep .mat-header-cell, ::ng-deep .mat-cell {
+    padding: 10px 4px;
+  }
   .candidates-table-container {
     padding: 12px 4px 8px 4px;
   }
 }
 
 @media (max-width: 700px) {
-  table.mat-table {
+  ::ng-deep table.mat-table {
     min-width: 0;
     font-size: 0.95rem;
   }
@@ -151,18 +233,16 @@ mat-card-content {
       font-size: 1.1rem;
     }
   }
+  ::ng-deep table.mat-table {
+    font-size: 0.92rem;
+  }
+  ::ng-deep .mat-header-cell, ::ng-deep .mat-cell {
+    padding: 7px 2px;
+  }
   .candidates-table-container {
     padding: 6px 2px 4px 2px;
     border-radius: 8px;
     min-width: unset;
     width: 100%;
   }
-}
-
-table.mat-table {
-  width: 100%;
-  min-width: 600px;
-  border-radius: 8px;
-  overflow: auto;
-  background: transparent;
 }

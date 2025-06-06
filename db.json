@@ -100,6 +100,42 @@
       ]
     },
     {
+      "id": "104",
+      "name": "Paulo Silva",
+      "email": "paulo.silva@email.com",
+      "password": "password123",
+      "phone": "912345678",
+      "address": "Rua Exemplo, 123, Lisboa",
+      "linkedin": "linkedin.com/in/anasilva",
+      "experiences": [
+        {
+          "company": "Empresa X",
+          "role": "Desenvolvedor Frontend Jr",
+          "years": 2
+        }
+      ],
+      "education": [
+        {
+          "institution": "Universidade Y",
+          "course": "Engenharia Informática",
+          "level": "Licenciatura"
+        }
+      ],
+      "skills": [
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "resume_pdf_path": null,
+      "is_reserve": false,
+      "interests": [
+        "Tecnologia",
+        "Desenvolvimento Web"
+      ]
+    },
+    {
       "id": "102",
       "name": "Carlos Pereira",
       "email": "carlos.pereira@email.com",
@@ -170,6 +206,13 @@
       "score": null
     },
     {
+      "id": "3",
+      "candidateId": 104,
+      "vacancyId": 3,
+      "applicationDate": "2025-06-05",
+      "score": null
+    },
+    {
       "id": "5bfc",
       "candidateId": "1",
       "vacancyId": "1",
@@ -181,6 +224,13 @@
       "candidateId": "1",
       "vacancyId": "2",
       "applicationDate": "2025-06-05T03:12:50.925Z",
+      "status": "Recebido"
+    },
+    {
+      "id": "f108",
+      "candidateId": "1",
+      "vacancyId": "4",
+      "applicationDate": "2025-06-06T02:31:44.819Z",
       "status": "Recebido"
     }
   ]
