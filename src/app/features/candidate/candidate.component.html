@@ -1,1 +1,24 @@
-<app-profile></app-profile>
+<div class="candidate-container">
+  <mat-nav-list class="sidenav">
+    <a mat-list-item routerLink="profile" routerLinkActive="active">
+      <mat-icon matListItemIcon>person</mat-icon>
+      <span matListItemTitle>Meu Perfil</span>
+    </a>
+    <a mat-list-item routerLink="resume" routerLinkActive="active">
+      <mat-icon matListItemIcon>description</mat-icon>
+      <span matListItemTitle>Currículo</span>
+    </a>
+    <a mat-list-item routerLink="applications" routerLinkActive="active">
+      <mat-icon matListItemIcon>assignment</mat-icon>
+      <span matListItemTitle>Minhas Candidaturas</span>
+    </a>
+    <a mat-list-item routerLink="recommended-jobs" routerLinkActive="active">
+      <mat-icon matListItemIcon>work</mat-icon>
+      <span matListItemTitle>Vagas Recomendadas</span>
+    </a>
+  </mat-nav-list>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
