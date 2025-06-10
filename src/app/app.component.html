@@ -1,15 +1,32 @@
 
-<mat-toolbar color="primary">
-  <span>Sistema de Recrutamento Inteligente</span>
+<mat-toolbar color="primary" class="app-toolbar">
+  <div class="toolbar-brand">
+    <mat-icon class="brand-icon">work</mat-icon>
+    <span class="brand-text">Sistema de Recrutamento Inteligente</span>
+  </div>
+  
   <span class="toolbar-spacer"></span>
-  <!-- Add navigation buttons here if needed -->
-  <button mat-button routerLink="/vacancies">Vagas</button>
-  <button mat-button routerLink="/candidate/profile">Meu Perfil</button>
-  <button mat-button routerLink="/rh">Painel RH</button>
-  <button mat-button  (click)="handleAuthAction()">
-    {{ (authService.isLoggedIn | async) ? 'logout' : 'login' }}
-  </button>
+  
+  <div class="toolbar-actions">
+    <button mat-button routerLink="/vacancies" routerLinkActive="active">
+      <mat-icon>work_outline</mat-icon>
+      <span class="button-text">Vagas</span>
+    </button>
+    <button mat-button routerLink="/candidate/profile" routerLinkActive="active">
+      <mat-icon>person</mat-icon>
+      <span class="button-text">Meu Perfil</span>
+    </button>
+    <button mat-button routerLink="/rh" routerLinkActive="active">
+      <mat-icon>dashboard</mat-icon>
+      <span class="button-text">Painel RH</span>
+    </button>
+    <button mat-button (click)="handleAuthAction()" class="auth-button">
+      <mat-icon>{{ (authService.isLoggedIn | async) ? 'logout' : 'login' }}</mat-icon>
+      <span class="button-text">{{ (authService.isLoggedIn | async) ? 'Sair' : 'Entrar' }}</span>
+    </button>
+  </div>
 </mat-toolbar>
+
 
 <div class="main-content">
   <router-outlet></router-outlet>
