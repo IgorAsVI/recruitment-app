@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Vacancy } from '../models/vacancy.model';
 import { environment } from '../../../../environments/environment';
 
@@ -13,15 +14,39 @@ export class VacancyService {
   constructor(private http: HttpClient) {}
 
   getVacancies(filters?: any): Observable<Vacancy[]> {
-    let params = new HttpParams();
-    if (filters) {
-      Object.keys(filters).forEach(key => {
-        if (filters[key]) {
-          params = params.append(key, filters[key]);
-        }
-      });
+    // Se não houver filtros, retorna todas as vagas
+    if (!filters || Object.keys(filters).length === 0) {
+      return this.http.get<Vacancy[]>(this.apiUrl);
     }
-    return this.http.get<Vacancy[]>(this.apiUrl, { params });
+
+    // Aplica os filtros
+    return this.http.get<Vacancy[]>(this.apiUrl).pipe(
+      map(vacancies => {
+        return vacancies.filter(vacancy => {
+          let matches = true;
+
+          // Filtro por área
+          if (filters.area && vacancy.area !== filters.area) {
+            matches = false;
+          }
+
+          // Filtro por tipo
+          if (filters.type && vacancy.type !== filters.type) {
+            matches = false;
+          }
+
+          // Filtro por localização (case insensitive e parcial)
+          if (filters.location) {
+            const locationMatch = vacancy.location.toLowerCase().includes(filters.location.toLowerCase());
+            if (!locationMatch) {
+              matches = false;
+            }
+          }
+
+          return matches;
+        });
+      })
+    );
   }
 
   getVacancyById(id: number): Observable<Vacancy> {
