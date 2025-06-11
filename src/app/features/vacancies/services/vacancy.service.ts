@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Vacancy } from '../models/vacancy.model';
 import { environment } from '../../../../environments/environment';
+import { ApiService } from '../../../core/services/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +11,16 @@ import { environment } from '../../../../environments/environment';
 export class VacancyService {
   private apiUrl = `${environment.apiUrl}/vacancies`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) {}
 
   getVacancies(filters?: any): Observable<Vacancy[]> {
     // Se não houver filtros, retorna todas as vagas
     if (!filters || Object.keys(filters).length === 0) {
-      return this.http.get<Vacancy[]>(this.apiUrl);
+      return this.apiService.getVacancies();
     }
 
     // Aplica os filtros
-    return this.http.get<Vacancy[]>(this.apiUrl).pipe(
+    return this.apiService.getVacancies().pipe(
       map(vacancies => {
         return vacancies.filter(vacancy => {
           let matches = true;
@@ -49,20 +49,16 @@ export class VacancyService {
     );
   }
 
-  getVacancyById(id: number): Observable<Vacancy> {
-    return this.http.get<Vacancy>(`${this.apiUrl}/${id}`);
-  }
-
   createVacancy(vacancy: Omit<Vacancy, 'id'>): Observable<Vacancy> {
-    return this.http.post<Vacancy>(this.apiUrl, vacancy);
+    return this.apiService.createVacancy(vacancy);
   }
 
   updateVacancy(id: number, vacancy: Partial<Vacancy>): Observable<Vacancy> {
-    return this.http.patch<Vacancy>(`${this.apiUrl}/${id}`, vacancy);
+    return this.apiService.updateVacancy(id, vacancy);
   }
 
   deleteVacancy(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.apiService.deleteVacancy(id);
   }
 }
 

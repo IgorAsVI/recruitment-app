@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private apiService: ApiService, private router: Router) {
     // Load user data from local storage on service initialization if token exists
     const userData = localStorage.getItem('currentUser');
-    if (userData) {
+    if (userData && userData != 'undefined') {
       this.currentUserSubject.next(JSON.parse(userData));
     }
   }

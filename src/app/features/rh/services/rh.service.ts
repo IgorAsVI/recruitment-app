@@ -55,7 +55,7 @@ export class RhService {
 
             // 3. For each application, get the candidate details
             const candidateObservables = applications.map(app =>
-              this.apiService.get(`candidates/${app.candidateId}`).pipe(
+              this.apiService.getCandidateById(app.candidateId).pipe(
                 map(candidate => {
                   if (!candidate) return null; // Candidate not found
                   // 4. Calculate score for this candidate against this vacancy

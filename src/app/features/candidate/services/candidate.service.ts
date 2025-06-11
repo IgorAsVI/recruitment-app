@@ -20,7 +20,7 @@ export class CandidateService {
     if (!currentUser || !currentUser.id) {
       return of(null);
     }
-    return this.apiService.get(`candidates/${currentUser.id}`);
+    return this.apiService.getCandidateById(currentUser.id);
   }
 
   updateCandidateProfile(profileData: any): Observable<any> {
@@ -29,7 +29,7 @@ export class CandidateService {
       // Should ideally return an error or handle this case appropriately
       return throwError(() => new Error('User not logged in or ID missing'));
     }
-    return this.apiService.put('candidates', currentUser.id, profileData).pipe(
+    return this.apiService.updateCandidate(currentUser.id, profileData).pipe(
       tap(updatedUser => {
         // Update local storage and potentially the BehaviorSubject in AuthService
         localStorage.setItem('currentUser', JSON.stringify(updatedUser));

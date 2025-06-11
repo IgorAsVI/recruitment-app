@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Vacancy } from '../../features/vacancies/models/vacancy.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,59 +12,81 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // Example GET request
+  // Generic HTTP methods
   get(endpoint: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${endpoint}`);
   }
 
-  // Example POST request
   post(endpoint: string, data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/${endpoint}`, data);
   }
 
-  // Example PUT request
   put(endpoint: string, id: number | string, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${endpoint}/${id}`, data);
   }
 
-  // Example DELETE request
   delete(endpoint: string, id: number | string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${endpoint}/${id}`);
   }
 
-   // Get candidates with optional filtering (e.g., by email)
-   getCandidates(params?: any): Observable<any[]> {
+  // Candidate methods
+  getCandidates(params?: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/candidates`, { params });
   }
 
+  getCandidateById(id: number | string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/candidates/${id}`);
+  }
+
+  addCandidate(candidate: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/candidates`, candidate);
+  }
+
+  updateCandidate(id: number | string, candidate: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/candidates/${id}`, candidate);
+  }
+
+  // RH Users methods
   getRHUsers(params?: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/rh_users`, { params });
   }
 
-  // Add a new candidate
-  addCandidate(candidate: any): Observable<any> {
-    return this.post('candidates', candidate);
+  // Vacancy methods
+  getVacancies(params?: any): Observable<Vacancy[]> {
+    return this.http.get<Vacancy[]>(`${this.apiUrl}/vacancies`, { params });
   }
 
-   // Get vacancies with optional filtering
-   getVacancies(params?: any): Observable<any[]> {
-      return this.http.get<any[]>(`${this.apiUrl}/vacancies`, { params })
+  getVacancyById(id: number): Observable<Vacancy> {
+    return this.http.get<Vacancy>(`${this.apiUrl}/vacancies/${id}`);
   }
 
-  // Get a specific vacancy by ID
-  getVacancyById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/vacancies/${id}`);
+  createVacancy(vacancy: any): Observable<Vacancy> {
+    return this.http.post<Vacancy>(`${this.apiUrl}/vacancies`, vacancy);
   }
 
-  // Add a new application
-  addApplication(application: any): Observable<any> {
-    return this.post('applications', application);
+  updateVacancy(id: number, vacancy: any): Observable<Vacancy> {
+    return this.http.put<Vacancy>(`${this.apiUrl}/vacancies/${id}`, vacancy);
   }
 
-   // Get applications with optional filtering (e.g., by candidateId)
-   getApplications(params?: any): Observable<any[]> {
+  deleteVacancy(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/vacancies/${id}`);
+  }
+
+  // Application methods
+  getApplications(params?: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/applications`, { params });
   }
 
+  addApplication(application: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/applications`, application);
+  }
+
+  updateApplication(id: number | string, application: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/applications/${id}`, application);
+  }
+
+  deleteApplication(id: number | string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/applications/${id}`);
+  }
 }
 
