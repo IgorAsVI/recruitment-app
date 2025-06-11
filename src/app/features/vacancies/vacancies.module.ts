@@ -14,18 +14,20 @@ import { MatSelectModule } from '@angular/material/select'; // For filters
 import { MatListModule } from '@angular/material/list'; // For vacancy list
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion'; // For filter panel
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { VacanciesRoutingModule } from './vacancies-routing.module';
 import { VacanciesComponent } from './vacancies.component';
 import { VacancyListComponent } from './vacancy-list/vacancy-list.component';
 import { VacancyFilterComponent } from './vacancy-filter/vacancy-filter.component';
-
+import { VacancyDetailsModalComponent } from './vacancy-details-modal/vacancy-details-modal.component';
 
 @NgModule({
   declarations: [
     VacanciesComponent,
     VacancyListComponent,
-    VacancyFilterComponent
+    VacancyFilterComponent,
+    VacancyDetailsModalComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { VacancyFilterComponent } from './vacancy-filter/vacancy-filter.componen
     MatSelectModule,
     MatListModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ]
 })
 export class VacanciesModule { }

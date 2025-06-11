@@ -33,10 +33,12 @@
               <small>Publicado em: {{ vacancy.postedDate | date:'dd/MM/yyyy' }}</small>
             </div>
             <div class="vacancy-actions">
-              <button mat-stroked-button class="ver-detalhes" (click)="viewDetails(vacancy.id)">
+              <button mat-stroked-button class="ver-detalhes" (click)="viewDetails(vacancy)">
+                <mat-icon>visibility</mat-icon>
                 Ver Detalhes
               </button>
               <button mat-raised-button class="apply-button" (click)="apply(vacancy.id)">
+                <mat-icon>send</mat-icon>
                 Candidatar-se
               </button>
             </div>

@@ -232,6 +232,20 @@
       "vacancyId": "4",
       "applicationDate": "2025-06-06T02:31:44.819Z",
       "status": "Recebido"
+    },
+    {
+      "id": "63ad",
+      "candidateId": "103",
+      "vacancyId": "1",
+      "applicationDate": "2025-06-11T23:43:10.139Z",
+      "status": "Recebido"
+    },
+    {
+      "id": "9689",
+      "candidateId": "103",
+      "vacancyId": "3",
+      "applicationDate": "2025-06-11T23:44:20.462Z",
+      "status": "Recebido"
     }
   ]
 }

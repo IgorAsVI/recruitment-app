@@ -1,0 +1,77 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h2 mat-dialog-title>{{ data.vacancy.title }}</h2>
+    <button mat-icon-button (click)="onClose()" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content>
+    <div class="vacancy-info">
+      <div class="info-row">
+        <mat-icon>business</mat-icon>
+        <span class="company">{{ data.vacancy.company }}</span>
+      </div>
+
+      <div class="info-row">
+        <mat-icon>location_on</mat-icon>
+        <span class="location">{{ data.vacancy.location }}</span>
+      </div>
+
+      <div class="info-row">
+        <mat-icon>work</mat-icon>
+        <span class="type">{{ data.vacancy.type }}</span>
+      </div>
+
+      <div class="info-row">
+        <mat-icon>category</mat-icon>
+        <span class="area">{{ data.vacancy.area }}</span>
+      </div>
+
+      <div class="info-row" *ngIf="data.vacancy.salary">
+        <mat-icon>payments</mat-icon>
+        <span class="salary">{{ data.vacancy.salary }}</span>
+      </div>
+
+      <div class="info-row">
+        <mat-icon>event</mat-icon>
+        <span class="date">Publicado em: {{ data.vacancy.postedDate | date:'dd/MM/yyyy' }}</span>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="description-section">
+      <h3>Descrição da Vaga</h3>
+      <p>{{ data.vacancy.description }}</p>
+    </div>
+
+    <div class="requirements-section" *ngIf="data.vacancy.requirements?.length">
+      <h3>Requisitos</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let requirement of data.vacancy.requirements">
+          <mat-icon matListItemIcon>check_circle</mat-icon>
+          <span matListItemTitle>{{ requirement }}</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div class="benefits-section" *ngIf="data.vacancy.benefits?.length">
+      <h3>Benefícios</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let benefit of data.vacancy.benefits">
+          <mat-icon matListItemIcon>star</mat-icon>
+          <span matListItemTitle>{{ benefit }}</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onClose()">Fechar</button>
+    <button mat-raised-button color="primary" (click)="onApply()">
+      <mat-icon>send</mat-icon>
+      Candidatar-se
+    </button>
+  </mat-dialog-actions>
+</div> 

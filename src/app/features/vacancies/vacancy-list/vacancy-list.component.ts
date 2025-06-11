@@ -3,8 +3,10 @@ import { VacancyService } from '../services/vacancy.service';
 import { Observable } from 'rxjs';
 import { CandidateService } from '../../candidate/services/candidate.service'; // Import CandidateService
 import { AuthService } from '../../../core/services/auth.service'; // Import AuthService
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, first } from 'rxjs/operators';
 import { Vacancy } from '../models/vacancy.model';
+import { MatDialog } from '@angular/material/dialog';
+import { VacancyDetailsModalComponent } from '../vacancy-details-modal/vacancy-details-modal.component';
 
 @Component({
   selector: 'app-vacancy-list',
@@ -22,7 +24,8 @@ export class VacancyListComponent implements OnInit {
   constructor(
     private vacancyService: VacancyService,
     private candidateService: CandidateService, // Inject CandidateService
-    private authService: AuthService // Inject AuthService
+    private authService: AuthService, // Inject AuthService
+    private dialog: MatDialog
   ) {
     this.vacancies$ = this.vacancyService.getVacancies();
   }
@@ -58,6 +61,20 @@ export class VacancyListComponent implements OnInit {
     this.loadVacancies(filters);
   }
 
+  viewDetails(vacancy: Vacancy): void {
+    const dialogRef = this.dialog.open(VacancyDetailsModalComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: { vacancy }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'apply') {
+        this.apply(vacancy.id);
+      }
+    });
+  }
+
   // Method to handle applying to a vacancy
   apply(vacancyId: number): void {
     if (!this.userId) {
@@ -69,26 +86,20 @@ export class VacancyListComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.candidateService.applyToVacancy(this.userId, vacancyId).subscribe({
-        next: (response: any) => { // Add explicit type
-            console.log('Application successful:', response);
-            this.successMessage = 'Candidatura enviada com sucesso!';
-            this.loading = false;
-            // Optionally reload vacancies or update UI to reflect application status
+    this.candidateService.applyToVacancy(this.userId, vacancyId)
+      .pipe(first())
+      .subscribe({
+        next: (response: any) => {
+          console.log('Application successful:', response);
+          this.successMessage = 'Candidatura enviada com sucesso!';
+          this.loading = false;
         },
-        error: (err: any) => { // Add explicit type
-            console.error('Application failed:', err);
-            // Check if the error object and message exist before accessing
-            this.errorMessage = err?.error?.message || err?.message || 'Falha ao enviar candidatura. Verifique se já se candidatou ou tente novamente.';
-            this.loading = false;
+        error: (err: any) => {
+          console.error('Application failed:', err);
+          this.errorMessage = err?.error?.message || err?.message || 'Falha ao enviar candidatura. Verifique se já se candidatou ou tente novamente.';
+          this.loading = false;
         }
-    });
-  }
-
-  // Placeholder for viewing details - will navigate to a detail route later
-  viewDetails(vacancyId: number): void {
-    console.log('View details for vacancy ID:', vacancyId);
-    // this.router.navigate(['/vacancies', vacancyId]); // Example navigation
+      });
   }
 }
 
