@@ -1,0 +1,272 @@
+.applications-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.no-applications {
+  text-align: center;
+  padding: 48px 24px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-top: 24px;
+
+  .no-applications-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #888;
+    margin-bottom: 24px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button {
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.application-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .application-avatar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  mat-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  mat-card-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
+
+.application-info {
+  margin: 16px 0;
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+
+    .info-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: #666;
+    }
+
+    .info-label {
+      font-weight: 500;
+      color: #555;
+      min-width: 120px;
+    }
+
+    .info-value {
+      color: #333;
+      flex: 1;
+
+      &.status {
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-align: center;
+        max-width: fit-content;
+      }
+    }
+  }
+}
+
+.status-received {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-analyzing {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-approved {
+  background-color: #e8f5e8;
+  color: #388e3c;
+}
+
+.status-rejected {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.status-default {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.vacancy-description {
+  margin: 16px 0;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+
+  p {
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+  }
+}
+
+.requirements {
+  margin-top: 16px;
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .requirements-chips {
+    mat-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    mat-chip {
+      background-color: #e8eaf6;
+      color: #3f51b5;
+      font-size: 0.8rem;
+      border-radius: 16px;
+    }
+  }
+}
+
+mat-card-actions {
+  padding: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+
+  button {
+    mat-icon {
+      margin-right: 4px;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .cancel-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+
+    .info-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .info-text {
+      font-style: italic;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .applications-container {
+    padding: 16px;
+  }
+
+  .applications-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .application-info .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+    .info-label {
+      min-width: auto;
+      font-size: 0.9rem;
+    }
+  }
+
+  mat-card-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+

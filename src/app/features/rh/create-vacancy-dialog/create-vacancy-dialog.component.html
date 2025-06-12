@@ -1,0 +1,110 @@
+<div class="create-vacancy-dialog">
+  <h2 mat-dialog-title>
+    <mat-icon>work_outline</mat-icon>
+    Nova Vaga
+  </h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="vacancyForm" class="vacancy-form">
+      <!-- Título da Vaga -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Título da Vaga</mat-label>
+        <input matInput formControlName="title" placeholder="Ex: Desenvolvedor Frontend Angular">
+        <mat-error *ngIf="vacancyForm.get('title')?.invalid && vacancyForm.get('title')?.touched">
+          {{ getErrorMessage('Título') }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Descrição -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description" rows="4" 
+                  placeholder="Descreva as responsabilidades e objetivos da vaga..."></textarea>
+        <mat-error *ngIf="vacancyForm.get('description')?.invalid && vacancyForm.get('description')?.touched">
+          {{ getErrorMessage('Descrição') }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Área e Tipo (lado a lado) -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Área</mat-label>
+          <mat-select formControlName="area">
+            <mat-option value="Tecnologia">Tecnologia</mat-option>
+            <mat-option value="Marketing">Marketing</mat-option>
+            <mat-option value="Vendas">Vendas</mat-option>
+            <mat-option value="Recursos Humanos">Recursos Humanos</mat-option>
+            <mat-option value="Financeiro">Financeiro</mat-option>
+            <mat-option value="Operações">Operações</mat-option>
+            <mat-option value="Design">Design</mat-option>
+            <mat-option value="Produto">Produto</mat-option>
+          </mat-select>
+          <mat-error *ngIf="vacancyForm.get('area')?.invalid && vacancyForm.get('area')?.touched">
+            Área é obrigatória
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="type">
+            <mat-option value="Tempo Integral">Tempo Integral</mat-option>
+            <mat-option value="Meio Período">Meio Período</mat-option>
+            <mat-option value="Freelancer">Freelancer</mat-option>
+            <mat-option value="Estágio">Estágio</mat-option>
+            <mat-option value="Contrato">Contrato</mat-option>
+          </mat-select>
+          <mat-error *ngIf="vacancyForm.get('type')?.invalid && vacancyForm.get('type')?.touched">
+            Tipo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Localização -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Localização</mat-label>
+        <input matInput formControlName="location" placeholder="Ex: Lisboa, Portugal">
+        <mat-error *ngIf="vacancyForm.get('location')?.invalid && vacancyForm.get('location')?.touched">
+          Localização é obrigatória
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Requisitos -->
+      <div class="requirements-section">
+        <h4>Requisitos</h4>
+        <div formArrayName="requirements">
+          <div *ngFor="let requirement of requirements.controls; let i = index" class="requirement-item">
+            <mat-form-field appearance="outline" class="requirement-input">
+              <mat-label>Requisito {{ i + 1 }}</mat-label>
+              <input matInput [formControlName]="i" placeholder="Ex: Angular 12+">
+              <mat-error *ngIf="requirement.invalid && requirement.touched">
+                Requisito é obrigatório
+              </mat-error>
+            </mat-form-field>
+            <button type="button" mat-icon-button color="warn" 
+                    (click)="removeRequirement(i)" 
+                    [disabled]="requirements.length <= 1"
+                    class="remove-requirement-btn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button type="button" mat-stroked-button (click)="addRequirement()" class="add-requirement-btn">
+          <mat-icon>add</mat-icon>
+          Adicionar Requisito
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" [disabled]="isLoading">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+      <mat-spinner *ngIf="isLoading" diameter="20" class="spinner-inline"></mat-spinner>
+      <span *ngIf="!isLoading">Criar Vaga</span>
+      <span *ngIf="isLoading">Criando...</span>
+    </button>
+  </mat-dialog-actions>
+</div>
+

@@ -14,16 +14,23 @@ import { MatSortModule } from '@angular/material/sort'; // Optional: for sorting
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge'; // For score display
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { RhRoutingModule } from './rh-routing.module';
 import { RhComponent } from './rh.component';
 import { RankedCandidatesComponent } from './ranked-candidates/ranked-candidates.component';
+import { CreateVacancyDialogComponent } from './create-vacancy-dialog/create-vacancy-dialog.component';
+import { CandidateProfileDialogComponent } from './candidate-profile-dialog/candidate-profile-dialog.component';
 
 
 @NgModule({
   declarations: [
     RhComponent,
-    RankedCandidatesComponent
+    RankedCandidatesComponent,
+    CreateVacancyDialogComponent,
+    CandidateProfileDialogComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +46,10 @@ import { RankedCandidatesComponent } from './ranked-candidates/ranked-candidates
     MatSortModule,
     MatIconModule,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule,
+    MatInputModule,
+    MatChipsModule
   ]
 })
 export class RhModule { }

@@ -2,7 +2,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core'; // Import ViewChild
 import { MatSort } from '@angular/material/sort'; // Import MatSort
 import { MatTableDataSource } from '@angular/material/table'; // Import MatTableDataSource
+import { MatDialog } from '@angular/material/dialog';
 import { RhService } from '../services/rh.service';
+import { CreateVacancyDialogComponent } from '../create-vacancy-dialog/create-vacancy-dialog.component';
+import { CandidateProfileDialogComponent } from '../candidate-profile-dialog/candidate-profile-dialog.component';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators'; // Import tap
 
@@ -26,7 +29,7 @@ export class RankedCandidatesComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort; // Add ViewChild for sorting
 
-  constructor(private rhService: RhService) { }
+  constructor(private rhService: RhService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadVacancies();
@@ -82,8 +85,29 @@ export class RankedCandidatesComponent implements OnInit {
   // Placeholder for viewing candidate details
   viewCandidateProfile(candidateId: number): void {
     console.log('View profile for candidate ID:', candidateId);
-    // Potentially navigate to a detailed candidate view within the RH panel
-    // this.router.navigate(['/rh/candidate', candidateId]);
+    
+    const dialogRef = this.dialog.open(CandidateProfileDialogComponent, {
+      width: '700px',
+      data: { candidateId: candidateId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Modal fechado');
+    });
+  }
+
+  openCreateVacancyDialog(): void {
+    const dialogRef = this.dialog.open(CreateVacancyDialogComponent, {
+      width: '600px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Recarregar a lista de vagas após criação
+        this.loadVacancies();
+      }
+    });
   }
 }
 

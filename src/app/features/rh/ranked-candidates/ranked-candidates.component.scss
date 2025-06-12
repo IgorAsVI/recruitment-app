@@ -20,7 +20,9 @@ mat-card-header {
   padding: 20px 24px 10px 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
+  
   .mat-card-title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -29,11 +31,24 @@ mat-card-header {
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    flex: 1;
   }
+  
   .rh-title-icon {
     display: flex;
     align-items: center;
     margin-right: 8px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    
+    button {
+      mat-icon {
+        margin-right: 4px;
+      }
+    }
   }
 }
 

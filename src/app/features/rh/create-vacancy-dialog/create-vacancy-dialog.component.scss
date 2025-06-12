@@ -1,0 +1,99 @@
+.create-vacancy-dialog {
+  .mat-dialog-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    
+    mat-icon {
+      color: #1976d2;
+    }
+  }
+
+  .vacancy-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 500px;
+
+    .full-width {
+      width: 100%;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+
+      .half-width {
+        flex: 1;
+      }
+    }
+
+    .requirements-section {
+      margin-top: 16px;
+
+      h4 {
+        margin: 0 0 12px 0;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .requirement-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 8px;
+
+        .requirement-input {
+          flex: 1;
+        }
+
+        .remove-requirement-btn {
+          margin-top: 8px;
+        }
+      }
+
+      .add-requirement-btn {
+        margin-top: 8px;
+        
+        mat-icon {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+
+  .mat-dialog-actions {
+    padding: 16px 0 0 0;
+    margin: 0;
+
+    .spinner-inline {
+      margin-right: 8px;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 600px) {
+  .create-vacancy-dialog {
+    .vacancy-form {
+      min-width: auto;
+
+      .form-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .requirement-item {
+        flex-direction: column;
+        align-items: stretch;
+
+        .remove-requirement-btn {
+          align-self: flex-end;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+}
+

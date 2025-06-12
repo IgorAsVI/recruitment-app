@@ -77,6 +77,10 @@ export class ApiService {
     return this.http.get<any[]>(`${this.apiUrl}/applications`, { params });
   }
 
+  getApplicationsByCandidateId(candidateId: number | string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/applications?candidateId=${candidateId}`);
+  }
+
   addApplication(application: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/applications`, application);
   }

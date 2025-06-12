@@ -1,1 +1,86 @@
-<p>applications works!</p>
+<div class="applications-container">
+  <h2 class="page-title">Minhas Aplicações</h2>
+  
+  <div *ngIf="applications.length === 0" class="no-applications">
+    <mat-icon class="no-applications-icon">work_off</mat-icon>
+    <h3>Nenhuma aplicação encontrada</h3>
+    <p>Você ainda não se candidatou a nenhuma vaga. Explore as vagas disponíveis e candidate-se!</p>
+    <button mat-raised-button color="primary" routerLink="/vacancies">
+      <mat-icon>work_outline</mat-icon>
+      Ver Vagas
+    </button>
+  </div>
+
+  <div *ngIf="applications.length > 0" class="applications-grid">
+    <mat-card *ngFor="let application of applications" class="application-card">
+      <mat-card-header>
+        <div mat-card-avatar class="application-avatar">
+          <mat-icon>work</mat-icon>
+        </div>
+        <mat-card-title>{{ application.vacancy?.title || 'Vaga não encontrada' }}</mat-card-title>
+        <mat-card-subtitle>{{ application.vacancy?.area || 'Área não especificada' }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="application-info">
+          <div class="info-item">
+            <mat-icon class="info-icon">calendar_today</mat-icon>
+            <span class="info-label">Data da Aplicação:</span>
+            <span class="info-value">{{ application.applicationDate | date:'dd/MM/yyyy' }}</span>
+          </div>
+          
+          <div class="info-item">
+            <mat-icon class="info-icon">location_on</mat-icon>
+            <span class="info-label">Localização:</span>
+            <span class="info-value">{{ application.vacancy?.location || 'Não especificada' }}</span>
+          </div>
+          
+          <div class="info-item">
+            <mat-icon class="info-icon">schedule</mat-icon>
+            <span class="info-label">Tipo:</span>
+            <span class="info-value">{{ application.vacancy?.type || 'Não especificado' }}</span>
+          </div>
+          
+          <div class="info-item" *ngIf="application.status">
+            <mat-icon class="info-icon">info</mat-icon>
+            <span class="info-label">Status:</span>
+            <span class="info-value status" [ngClass]="getStatusClass(application.status)">
+              {{ application.status }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="vacancy-description" *ngIf="application.vacancy?.description">
+          <p>{{ application.vacancy.description }}</p>
+        </div>
+        
+        <div class="requirements" *ngIf="application.vacancy?.requirements && application.vacancy.requirements.length > 0">
+          <h4>Requisitos:</h4>
+          <div class="requirements-chips">
+            <mat-chip-set>
+              <mat-chip *ngFor="let requirement of application.vacancy.requirements">
+                {{ requirement }}
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button 
+          mat-button 
+          color="warn" 
+          (click)="cancelApplication(application.id)"
+          *ngIf="canCancelApplication(application.status)"
+          [disabled]="!canCancelApplication(application.status)">
+          <mat-icon>cancel</mat-icon>
+          Cancelar Aplicação
+        </button>
+        <div *ngIf="!canCancelApplication(application.status)" class="cancel-info">
+          <mat-icon class="info-icon">info</mat-icon>
+          <span class="info-text">Esta aplicação não pode ser cancelada</span>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

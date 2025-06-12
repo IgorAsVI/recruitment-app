@@ -1,0 +1,161 @@
+<div class="candidate-profile-dialog">
+  <h2 mat-dialog-title>
+    <mat-icon>person</mat-icon>
+    Perfil do Candidato
+  </h2>
+
+  <mat-dialog-content>
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Carregando perfil do candidato...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !isLoading" class="error-container">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Candidate Profile -->
+    <div *ngIf="candidate && !isLoading && !error" class="candidate-profile">
+      <!-- Personal Information -->
+      <mat-card class="info-section">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>person_outline</mat-icon>
+            Informações Pessoais
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-item">
+              <mat-icon class="info-icon">badge</mat-icon>
+              <div class="info-content">
+                <span class="info-label">Nome:</span>
+                <span class="info-value">{{ candidate.name || 'Não informado' }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon class="info-icon">email</mat-icon>
+              <div class="info-content">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ candidate.email || 'Não informado' }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon class="info-icon">phone</mat-icon>
+              <div class="info-content">
+                <span class="info-label">Telefone:</span>
+                <span class="info-value">{{ formatPhoneNumber(candidate.phone) || 'Não informado' }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon class="info-icon">location_on</mat-icon>
+              <div class="info-content">
+                <span class="info-label">Morada:</span>
+                <span class="info-value">{{ candidate.address || 'Não informado' }}</span>
+              </div>
+            </div>
+
+            <div class="info-item" *ngIf="candidate.linkedinProfile">
+              <mat-icon class="info-icon">link</mat-icon>
+              <div class="info-content">
+                <span class="info-label">LinkedIn:</span>
+                <a [href]="candidate.linkedinProfile" target="_blank" class="info-value link">
+                  {{ candidate.linkedinProfile }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Professional Experience -->
+      <mat-card class="info-section" *ngIf="candidate.experience && candidate.experience.length > 0">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>work_outline</mat-icon>
+            Experiência Profissional
+            <span class="experience-summary">({{ getExperienceYears() }} anos total)</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="experience-list">
+            <div *ngFor="let exp of candidate.experience" class="experience-item">
+              <div class="experience-header">
+                <h4>{{ exp.position || 'Cargo não informado' }}</h4>
+                <span class="experience-duration">{{ exp.years || 0 }} anos</span>
+              </div>
+              <p class="experience-company">
+                <mat-icon class="company-icon">business</mat-icon>
+                {{ exp.company || 'Empresa não informada' }}
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Skills/Competências -->
+      <mat-card class="info-section" *ngIf="candidate.skills && candidate.skills.length > 0">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>psychology</mat-icon>
+            Competências
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="skills-container">
+            <mat-chip-set>
+              <mat-chip *ngFor="let skill of candidate.skills">
+                {{ skill }}
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Education -->
+      <mat-card class="info-section" *ngIf="candidate.education && candidate.education.length > 0">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>school</mat-icon>
+            Formação Académica
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="education-list">
+            <div *ngFor="let edu of candidate.education" class="education-item">
+              <h4>{{ edu.degree || 'Curso não informado' }}</h4>
+              <p class="education-institution">
+                <mat-icon class="institution-icon">account_balance</mat-icon>
+                {{ edu.institution || 'Instituição não informada' }}
+              </p>
+              <p class="education-year" *ngIf="edu.year">
+                <mat-icon class="year-icon">event</mat-icon>
+                {{ edu.year }}
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- No Information Available -->
+      <div *ngIf="!candidate.experience?.length && !candidate.skills?.length && !candidate.education?.length" 
+           class="no-additional-info">
+        <mat-icon>info</mat-icon>
+        <p>Informações adicionais não disponíveis para este candidato.</p>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="onClose()">
+      Fechar
+    </button>
+  </mat-dialog-actions>
+</div>
+
