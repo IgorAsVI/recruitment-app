@@ -13,12 +13,16 @@ export class AuthService {
   public currentUser = this.currentUserSubject.asObservable();
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   public isLoggedIn = this.loggedIn.asObservable();
+  private userTypeSubject = new BehaviorSubject<string>('candidate');
+  public userType = this.userTypeSubject.asObservable();
 
   constructor(private apiService: ApiService, private router: Router) {
     // Load user data from local storage on service initialization if token exists
     const userData = localStorage.getItem('currentUser');
+    const userType = localStorage.getItem('userType') || 'candidate';
     if (userData && userData != 'undefined') {
       this.currentUserSubject.next(JSON.parse(userData));
+      this.userTypeSubject.next(userType);
     }
   }
 
@@ -35,7 +39,9 @@ export class AuthService {
           const user = users[0];
           // Store user data in local storage (in a real app, use a token)
           localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('userType', 'rh');
           this.currentUserSubject.next(user);
+          this.userTypeSubject.next('rh');
           this.loggedIn.next(true);
           return user;
         } else {
@@ -59,7 +65,9 @@ export class AuthService {
           const user = users[0];
           // Store user data in local storage (in a real app, use a token)
           localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('userType', 'candidate');
           this.currentUserSubject.next(user);
+          this.userTypeSubject.next('candidate');
           this.loggedIn.next(true);
           return user;
         } else {
@@ -109,7 +117,9 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('userType');
     this.currentUserSubject.next(null);
+    this.userTypeSubject.next('candidate');
     this.loggedIn.next(false);
     this.router.navigate(['/auth/login']);
   }

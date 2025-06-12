@@ -8,18 +8,23 @@
   <span class="toolbar-spacer"></span>
   
   <div class="toolbar-actions">
-    <button mat-button routerLink="/vacancies" routerLinkActive="active">
+    <!-- Abas para candidatos -->
+    <button *ngIf="(authService.userType | async) === 'candidate'" mat-button routerLink="/vacancies" routerLinkActive="active">
       <mat-icon>work_outline</mat-icon>
       <span class="button-text">Vagas</span>
     </button>
-    <button mat-button routerLink="/candidate/profile" routerLinkActive="active">
+    <button *ngIf="(authService.userType | async) === 'candidate'" mat-button routerLink="/candidate/profile" routerLinkActive="active">
       <mat-icon>person</mat-icon>
       <span class="button-text">Meu Perfil</span>
     </button>
-    <button mat-button routerLink="/rh" routerLinkActive="active">
+    
+    <!-- Abas para usuários RH -->
+    <button *ngIf="(authService.userType | async) === 'rh'" mat-button routerLink="/rh" routerLinkActive="active">
       <mat-icon>dashboard</mat-icon>
       <span class="button-text">Painel RH</span>
     </button>
+    
+    <!-- Botão de login/logout sempre visível -->
     <button mat-button (click)="handleAuthAction()" class="auth-button">
       <mat-icon>{{ (authService.isLoggedIn | async) ? 'logout' : 'login' }}</mat-icon>
       <span class="button-text">{{ (authService.isLoggedIn | async) ? 'Sair' : 'Entrar' }}</span>
