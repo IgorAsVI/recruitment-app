@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge'; // For recommended jobs score
+import { MatDividerModule } from '@angular/material/divider';
 
 import { CandidateRoutingModule } from './candidate-routing.module';
 import { CandidateComponent } from './candidate.component';
@@ -22,7 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ResumeUploadComponent } from './resume-upload/resume-upload.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { RecommendedJobsComponent } from './recommended-jobs/recommended-jobs.component';
-
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { RecommendedJobsComponent } from './recommended-jobs/recommended-jobs.co
     CommonModule,
     CandidateRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
     // Material Modules
     MatCardModule,
     MatFormFieldModule,
@@ -47,7 +48,8 @@ import { RecommendedJobsComponent } from './recommended-jobs/recommended-jobs.co
     MatChipsModule,
     MatListModule,
     MatProgressBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDividerModule
   ]
 })
 export class CandidateModule { }

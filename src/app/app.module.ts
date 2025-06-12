@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import BrowserAnimationsModule
@@ -12,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
 
 // Import Core Services if needed globally (e.g., AuthService)
 // import { AuthService } from './core/services/auth.service';
@@ -29,7 +29,8 @@ import { AppComponent } from './app.component';
     // Material Modules for AppComponent
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    SharedModule
   ],
   providers: [
     // Provide global services here if necessary

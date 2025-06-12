@@ -1,6 +1,5 @@
-
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { first } from 'rxjs/operators';
@@ -33,11 +32,38 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
       phone: ['', Validators.required],
       address: [''],
       linkedin: ['']
-      // Experience, Education, Skills will be added/edited in the profile section later
     });
+
+    // Adiciona o validador de senha após a criação do formulário
+    this.registerForm.setValidators(this.passwordMatchValidator);
+    
+    // Inscreve-se nas mudanças do formulário para atualizar a validação
+    this.registerForm.valueChanges.subscribe(() => {
+      this.registerForm.updateValueAndValidity();
+    });
+  }
+
+  // Custom validator to check if passwords match
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const form = control as FormGroup;
+    const password = form.get('password');
+    const confirmPassword = form.get('confirmPassword');
+    
+    if (!password || !confirmPassword) {
+      return null;
+    }
+
+    if (password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    } else {
+      confirmPassword.setErrors(null);
+      return null;
+    }
   }
 
   // Convenience getter for easy access to form fields
@@ -47,6 +73,15 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.errorMessage = '';
     this.successMessage = '';
+
+    // Log para debug
+    console.log('Form Status:', {
+      valid: this.registerForm.valid,
+      invalid: this.registerForm.invalid,
+      errors: this.registerForm.errors,
+      password: this.f['password'].value,
+      confirmPassword: this.f['confirmPassword'].value
+    });
 
     // Stop here if form is invalid
     if (this.registerForm.invalid) {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../core/services/api.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { forkJoin } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-applications',
@@ -11,7 +13,11 @@ import { forkJoin } from 'rxjs';
 export class ApplicationsComponent implements OnInit {
   applications: any[] = [];
 
-  constructor(private apiService: ApiService, private authService: AuthService) { }
+  constructor(
+    private apiService: ApiService, 
+    private authService: AuthService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.loadApplications();
@@ -62,20 +68,51 @@ export class ApplicationsComponent implements OnInit {
   }
 
   cancelApplication(applicationId: string): void {
-    if (confirm('Tem certeza que deseja cancelar esta aplicação?')) {
-      this.apiService.deleteApplication(applicationId).subscribe(
-        () => {
-          console.log('Aplicação cancelada com sucesso!');
-          // Mostrar mensagem de sucesso
-          alert('Aplicação cancelada com sucesso!');
-          this.loadApplications(); // Recarregar a lista de aplicações
-        },
-        error => {
-          console.error('Erro ao cancelar aplicação:', error);
-          alert('Erro ao cancelar aplicação. Por favor, tente novamente.');
-        }
-      );
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Cancelar Aplicação',
+        message: 'Tem certeza que deseja cancelar esta aplicação?',
+        confirmText: 'Sim, Cancelar',
+        cancelText: 'Não',
+        type: 'warning'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.apiService.deleteApplication(applicationId).subscribe(
+          () => {
+            console.log('Aplicação cancelada com sucesso!');
+            // Mostrar mensagem de sucesso
+            this.dialog.open(ConfirmDialogComponent, {
+              width: '400px',
+              data: {
+                title: 'Sucesso',
+                message: 'Aplicação cancelada com sucesso!',
+                confirmText: 'OK',
+                type: 'success',
+                showCancel: false
+              }
+            });
+            this.loadApplications(); // Recarregar a lista de aplicações
+          },
+          error => {
+            console.error('Erro ao cancelar aplicação:', error);
+            this.dialog.open(ConfirmDialogComponent, {
+              width: '400px',
+              data: {
+                title: 'Erro',
+                message: 'Erro ao cancelar aplicação. Por favor, tente novamente.',
+                confirmText: 'OK',
+                type: 'error',
+                showCancel: false
+              }
+            });
+          }
+        );
+      }
+    });
   }
 
   canCancelApplication(status: string): boolean {

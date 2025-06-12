@@ -180,6 +180,21 @@
         "Recursos Humanos",
         "Gestão de Pessoas"
       ]
+    },
+    {
+      "id": "2c04",
+      "name": "Paulinho",
+      "email": "paulinho@email.com",
+      "password": "123456",
+      "phone": "",
+      "address": "",
+      "linkedin": null,
+      "resume_pdf_path": null,
+      "is_reserve": false,
+      "interests": [],
+      "experiences": [],
+      "education": [],
+      "skills": []
     }
   ],
   "rh_users": [

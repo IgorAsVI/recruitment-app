@@ -6,12 +6,18 @@
 
   <!-- Error Message -->
   <div *ngIf="errorMessage && !loading" class="alert alert-danger" role="alert">
-    {{ errorMessage }}
+    <div class="alert-content">
+      <div class="alert-title">Atenção</div>
+      <div class="alert-message">{{ errorMessage }}</div>
+    </div>
   </div>
 
   <!-- Success Message -->
   <div *ngIf="successMessage" class="alert alert-success" role="alert">
-    {{ successMessage }}
+    <div class="alert-content">
+      <div class="alert-title">Sucesso</div>
+      <div class="alert-message">{{ successMessage }}</div>
+    </div>
   </div>
 
   <!-- Vacancy List -->
