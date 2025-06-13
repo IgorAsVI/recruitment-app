@@ -85,7 +85,7 @@ export class ApplicationsComponent implements OnInit {
           () => {
             console.log('Aplicação cancelada com sucesso!');
             // Mostrar mensagem de sucesso
-            this.dialog.open(ConfirmDialogComponent, {
+            const successDialog = this.dialog.open(ConfirmDialogComponent, {
               width: '400px',
               data: {
                 title: 'Sucesso',
@@ -95,7 +95,12 @@ export class ApplicationsComponent implements OnInit {
                 showCancel: false
               }
             });
-            this.loadApplications(); // Recarregar a lista de aplicações
+
+            // Quando o diálogo de sucesso for fechado, atualizar a lista
+            successDialog.afterClosed().subscribe(() => {
+              // Remover a aplicação cancelada da lista local
+              this.applications = this.applications.filter(app => app.id !== applicationId);
+            });
           },
           error => {
             console.error('Erro ao cancelar aplicação:', error);
