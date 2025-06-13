@@ -182,19 +182,62 @@
       ]
     },
     {
-      "id": "2c04",
       "name": "Paulinho",
       "email": "paulinho@email.com",
-      "password": "123456",
-      "phone": "",
-      "address": "",
-      "linkedin": null,
-      "resume_pdf_path": null,
-      "is_reserve": false,
-      "interests": [],
-      "experiences": [],
-      "education": [],
-      "skills": []
+      "phone": "83999999999",
+      "address": "Casa",
+      "linkedin": "https://www.linkedin.com/in/paulo-sergio-968797161/",
+      "experiences": [
+        {
+          "company": "Conductor",
+          "role": "Estagiario",
+          "years": 1
+        },
+        {
+          "company": "Dock",
+          "role": "Analista I",
+          "years": 1
+        },
+        {
+          "company": "Dock",
+          "role": "Analista II",
+          "years": 1
+        },
+        {
+          "company": "Sis",
+          "role": "Analista II",
+          "years": 1
+        },
+        {
+          "company": "GFT",
+          "role": "Analista II",
+          "years": 1
+        }
+      ],
+      "education": [
+        {
+          "institution": "IESP",
+          "course": "CODE",
+          "level": "Licenciatura"
+        },
+        {
+          "institution": "IESP",
+          "course": "CODE",
+          "level": "POS"
+        }
+      ],
+      "skills": [
+        "ANGULAR",
+        "JAVA",
+        "SPRING",
+        "MYSQL",
+        "MONGODB"
+      ],
+      "is_reserve": true,
+      "interests": [
+        "IA"
+      ],
+      "id": "2c04"
     }
   ],
   "rh_users": [
@@ -260,6 +303,13 @@
       "candidateId": "103",
       "vacancyId": "3",
       "applicationDate": "2025-06-11T23:44:20.462Z",
+      "status": "Recebido"
+    },
+    {
+      "id": "0f17",
+      "candidateId": "2c04",
+      "vacancyId": "1",
+      "applicationDate": "2025-06-13T00:59:59.454Z",
       "status": "Recebido"
     }
   ]
