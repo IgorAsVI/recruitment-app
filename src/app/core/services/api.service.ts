@@ -46,6 +46,10 @@ export class ApiService {
     return this.http.put<any>(`${this.apiUrl}/candidates/${id}`, candidate);
   }
 
+  updateCandidateResumePath(candidateId: string, resumePath: string): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/candidates/${candidateId}`, { resume_pdf_path: resumePath });
+  }
+
   // RH Users methods
   getRHUsers(params?: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/rh_users`, { params });

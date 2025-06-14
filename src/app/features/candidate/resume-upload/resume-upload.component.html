@@ -1,39 +1,109 @@
 
 <mat-card class="upload-card">
   <mat-card-header>
-    <mat-card-title>Carregar Currículo (PDF)</mat-card-title>
+    <mat-card-title>
+      <mat-icon>description</mat-icon>
+      Carregar Currículo (PDF)
+    </mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
+    <!-- Mensagens de erro e sucesso -->
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <mat-icon>error</mat-icon>
       {{ errorMessage }}
     </div>
     <div *ngIf="uploadMessage" class="alert alert-success" role="alert">
+      <mat-icon>check_circle</mat-icon>
       {{ uploadMessage }}
     </div>
 
-    <div class="file-input-container">
-      <button mat-stroked-button color="primary" (click)="fileInput.click()">
-        <mat-icon>attach_file</mat-icon>
-        Selecionar Ficheiro PDF
+    <!-- Visualização do currículo atual -->
+    <div *ngIf="hasCurrentResume()" class="current-resume-section">
+      <h3>
+        <mat-icon>picture_as_pdf</mat-icon>
+        Currículo Atual
+      </h3>
+      
+      <div class="resume-info">
+        <p><strong>Ficheiro:</strong> {{ getFileName(currentResumePath) }}</p>
+        <div class="resume-actions">
+          <button mat-stroked-button color="primary" (click)="downloadResume()">
+            <mat-icon>download</mat-icon>
+            Descarregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Iframe para visualização do PDF -->
+
+      <mat-divider class="section-divider"></mat-divider>
+      
+      <h3>
+        <mat-icon>update</mat-icon>
+        Substituir Currículo
+      </h3>
+      <p class="replace-info">
+        Pode carregar um novo currículo para substituir o atual. O ficheiro anterior será removido automaticamente.
+      </p>
+    </div>
+
+    <!-- Seção de upload (sempre visível) -->
+    <div class="upload-section" [class.has-current]="hasCurrentResume()">
+      <h3 *ngIf="!hasCurrentResume()">
+        <mat-icon>cloud_upload</mat-icon>
+        Carregar Novo Currículo
+      </h3>
+
+      <div class="file-input-container">
+        <button mat-stroked-button color="primary" (click)="fileInput.click()" [disabled]="loading">
+          <mat-icon>attach_file</mat-icon>
+          Selecionar Ficheiro PDF
+        </button>
+        <input hidden type="file" #fileInput accept=".pdf" (change)="onFileSelected($event)">
+        
+        <div *ngIf="selectedFile" class="selected-file">
+          <mat-icon>description</mat-icon>
+          <span class="file-name">{{ selectedFile.name }}</span>
+          <span class="file-size">({{ formatFileSize(selectedFile.size) }})</span>
+        </div>
+      </div>
+
+      <div class="upload-requirements">
+        <h4>Requisitos:</h4>
+        <ul>
+          <li>Formato: PDF apenas</li>
+          <li>Tamanho máximo: 10MB</li>
+          <li>Recomendado: Máximo 2 páginas</li>
+        </ul>
+      </div>
+
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="onUpload()" 
+        [disabled]="!selectedFile || loading" 
+        class="upload-button">
+        <mat-spinner *ngIf="loading" diameter="20" class="button-spinner"></mat-spinner>
+        <mat-icon *ngIf="!loading">cloud_upload</mat-icon>
+        <span *ngIf="!loading">{{ hasCurrentResume() ? 'Substituir Currículo' : 'Carregar Currículo' }}</span>
+        <span *ngIf="loading">A carregar...</span>
       </button>
-      <input hidden type="file" #fileInput accept=".pdf" (change)="onFileSelected($event)">
-      <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
     </div>
 
-    <button mat-raised-button color="primary" (click)="onUpload()" [disabled]="!selectedFile || loading" class="upload-button">
-      <mat-spinner *ngIf="loading" diameter="20" class="button-spinner"></mat-spinner>
-      <span *ngIf="!loading">Carregar Currículo</span>
-    </button>
+    <mat-divider class="section-divider"></mat-divider>
 
-    <div *ngIf="currentResumePath" class="current-resume-info">      <p><strong>Currículo Atual:</strong> {{ getFileName(currentResumePath) }}</p>
-      <!-- Add a link to view/download if backend supports it -->
+    <!-- Informação sobre currículo reserva -->
+    <div class="reserve-info">
+      <h4>
+        <mat-icon>bookmark</mat-icon>
+        Currículo Reserva
+      </h4>
+      <p>
+        Se não encontrou vagas do seu interesse no momento, pode deixar o seu currículo connosco 
+        para futuras oportunidades. Será contactado quando surgirem vagas adequadas ao seu perfil.
+      </p>
     </div>
-
-    <mat-divider></mat-divider>
-
-    <h4>Currículo Reserva</h4>
-    <p>Se não encontrou vagas do seu interesse no momento, pode deixar o seu currículo conosco para futuras oportunidades.</p>
 
   </mat-card-content>
 </mat-card>
