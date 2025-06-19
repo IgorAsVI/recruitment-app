@@ -184,6 +184,7 @@
     {
       "name": "Paulinho",
       "email": "paulinho@email.com",
+      "password": "123456",
       "phone": "83999999999",
       "address": "Casa",
       "linkedin": "https://www.linkedin.com/in/paulo-sergio-968797161/",
@@ -237,7 +238,8 @@
       "interests": [
         "IA"
       ],
-      "id": "2c04"
+      "id": "2c04",
+      "resume_pdf_path": "https://curriculos-pos.s3.us-east-1.amazonaws.com/UUID/2c04_1749924501535_Design sem nome-3.pdf"
     }
   ],
   "rh_users": [

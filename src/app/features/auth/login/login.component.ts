@@ -1,9 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { first } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   loading = false;
   errorMessage = '';
-  isAdmLogin = false;
+  loginType: 'candidate' | 'admin' = 'candidate';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,11 +23,10 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute 
   ) {
-     // Redirect to home if already logged in
-     if (this.authService.getCurrentUser()) {
-       this.router.navigate(['/']); // Navigate to a default logged-in route, e.g., candidate dashboard or vacancies
-     }
-      this.isAdmLogin = this.route.snapshot.queryParamMap.get('adm') ? true : false; // Substitua 'nomeDoParametro' pelo nome do parâmetro
+    // Redireciona para home se já estiver logado
+    if (this.authService.getCurrentUser()) {
+      this.router.navigate(['/']);
+    }
   }
 
   ngOnInit(): void {
@@ -40,23 +39,25 @@ export class LoginComponent implements OnInit {
   // Convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
+  onLoginTypeChange(): void {
+    // Pode ser usado para lógica extra de UI
+  }
+
   onSubmit(): void {
     this.submitted = true;
     this.errorMessage = '';
 
-    // Stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authService.login(this.loginForm.value,this.isAdmLogin)
+    const isAdmLogin = this.loginType === 'admin';
+    this.authService.login(this.loginForm.value, isAdmLogin)
       .pipe(first())
       .subscribe({
         next: () => {
-          // Login successful, navigate to a protected route (e.g., candidate profile or vacancies)
-          // The specific route might depend on user role or initial setup
-          this.router.navigate(['/vacancies']); // Example: Navigate to vacancies list
+          this.router.navigate(['/vacancies']);
           this.loading = false;
         },
         error: error => {

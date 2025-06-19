@@ -6,6 +6,18 @@
     </mat-card-header>
 
     <mat-card-content>
+      <div class="login-type-toggle">
+        <mat-button-toggle-group [(ngModel)]="loginType" name="loginType" aria-label="Tipo de Login" (change)="onLoginTypeChange()">
+          <mat-button-toggle value="candidate">Candidato</mat-button-toggle>
+          <mat-button-toggle value="admin">Administrador</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="login-type-banner" [ngClass]="{'admin': loginType === 'admin', 'candidate': loginType === 'candidate'}">
+        <mat-icon>{{ loginType === 'admin' ? 'admin_panel_settings' : 'person' }}</mat-icon>
+        <span>{{ loginType === 'admin' ? 'Login de Administrador' : 'Login de Candidato' }}</span>
+      </div>
+
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="full-width">
