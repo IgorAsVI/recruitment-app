@@ -112,22 +112,86 @@ button[type="submit"] {
   margin-bottom: 16px;
 }
 
+::ng-deep .mat-button-toggle-group {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+}
+
+::ng-deep .mat-button-toggle {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 24px !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #1976d2;
+  border: 2px solid #e0e0e0;
+  box-shadow: none;
+  transition: background 0.3s cubic-bezier(.4,0,.2,1), color 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s cubic-bezier(.4,0,.2,1), border 0.3s cubic-bezier(.4,0,.2,1), transform 0.25s cubic-bezier(.4,0,.2,1);
+  transform: scale(1);
+}
+
+::ng-deep .mat-button-toggle-checked.candidate {
+  background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+  color: #fff !important;
+  border: 2px solid #1976d2;
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+::ng-deep .mat-button-toggle-checked.admin {
+  background: linear-gradient(90deg, #7b1fa2 60%, #ce93d8 100%);
+  color: #fff !important;
+  border: 2px solid #7b1fa2;
+  box-shadow: 0 4px 16px rgba(123, 31, 162, 0.18);
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+::ng-deep .mat-button-toggle-checked .toggle-icon {
+  color: #fff;
+}
+
+::ng-deep .mat-button-toggle:not(.mat-button-toggle-checked) .toggle-icon {
+  color: #1976d2;
+}
+
+.toggle-icon {
+  font-size: 20px;
+  vertical-align: middle;
+  color: #1976d2;
+  transition: color 0.2s;
+}
+
 .login-type-banner {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   padding: 10px 0;
   border-radius: 6px;
   margin-bottom: 20px;
   transition: background 0.3s, color 0.3s;
+  text-align: center;
+  min-height: 32px;
 }
 
 .login-type-banner.candidate {
   background: #e3f2fd;
   color: #1976d2;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 0;
 }
 
 .login-type-banner.admin {
@@ -135,9 +199,35 @@ button[type="submit"] {
   color: #7b1fa2;
 }
 
-.login-type-banner mat-icon {
+.login-type-banner span {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-card-header.candidate {
+  background: #1976d2;
+  color: #fff;
+  transition: background 0.3s;
+}
+
+mat-card-header.admin {
+  background: #7b1fa2;
+  color: #fff;
+  transition: background 0.3s;
+}
+
+mat-card-header .header-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+}
+
+mat-card-title {
   font-size: 24px;
-  vertical-align: middle;
+  margin: 0;
 }
 
 // Responsividade
@@ -167,4 +257,68 @@ button[type="submit"] {
     width: 24px;
     height: 24px;
   }
+}
+
+.login-type-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 8px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.login-type-card {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 10px;
+  min-width: 140px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: border 0.25s, box-shadow 0.25s, background 0.25s;
+  position: relative;
+  user-select: none;
+}
+
+.login-type-card .card-icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #1976d2;
+  transition: color 0.25s;
+}
+
+.login-type-card .card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.login-type-card.selected {
+  border: 2.5px solid #1976d2;
+  background: linear-gradient(90deg, #e3f2fd 60%, #fff 100%);
+  box-shadow: 0 4px 18px rgba(25, 118, 210, 0.13);
+  z-index: 2;
+}
+
+.login-type-card.selected .card-icon {
+  color: #1976d2;
+  font-size: 26px;
+}
+
+.login-type-card.selected:nth-child(2) {
+  border-color: #7b1fa2;
+  background: linear-gradient(90deg, #ede7f6 60%, #fff 100%);
+}
+
+.login-type-card.selected:nth-child(2) .card-icon {
+  color: #7b1fa2;
 }

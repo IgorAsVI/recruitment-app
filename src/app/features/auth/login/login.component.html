@@ -1,21 +1,30 @@
 <div class="auth-container">
   <mat-card class="auth-card">
-    <mat-card-header>
-      <mat-icon class="header-icon">work</mat-icon>
-      <mat-card-title>Login</mat-card-title>
+    <mat-card-header [ngClass]="loginType">
+      <mat-icon class="header-icon">
+        {{ loginType === 'admin' ? 'admin_panel_settings' : 'person' }}
+      </mat-icon>
+      <mat-card-title>
+        {{ loginType === 'admin' ? 'Login de Administrador' : 'Login de Candidato' }}
+      </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <div class="login-type-toggle">
-        <mat-button-toggle-group [(ngModel)]="loginType" name="loginType" aria-label="Tipo de Login" (change)="onLoginTypeChange()">
-          <mat-button-toggle value="candidate">Candidato</mat-button-toggle>
-          <mat-button-toggle value="admin">Administrador</mat-button-toggle>
-        </mat-button-toggle-group>
+      <div class="login-type-cards">
+        <div class="login-type-card" [class.selected]="loginType === 'candidate'" (click)="loginType = 'candidate'">
+          <mat-icon class="card-icon">person</mat-icon>
+          <div class="card-title">Candidato</div>
+        </div>
+        <div class="login-type-card" [class.selected]="loginType === 'admin'" (click)="loginType = 'admin'">
+          <mat-icon class="card-icon">admin_panel_settings</mat-icon>
+          <div class="card-title">Administrador</div>
+        </div>
       </div>
 
       <div class="login-type-banner" [ngClass]="{'admin': loginType === 'admin', 'candidate': loginType === 'candidate'}">
-        <mat-icon>{{ loginType === 'admin' ? 'admin_panel_settings' : 'person' }}</mat-icon>
-        <span>{{ loginType === 'admin' ? 'Login de Administrador' : 'Login de Candidato' }}</span>
+        <span>
+          {{ loginType === 'admin' ? 'Acesso exclusivo para administradores do sistema.' : 'Acesse como candidato para visualizar e se candidatar às vagas.' }}
+        </span>
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
