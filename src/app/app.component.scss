@@ -1,12 +1,74 @@
-
 :host {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-mat-toolbar {
-  flex-shrink: 0; // Prevent toolbar from shrinking
+mat-toolbar.app-toolbar {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  padding: 0 18px;
+  background: #17407e;
+  box-shadow: 0 2px 8px rgba(23, 64, 126, 0.08);
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  font-size: 26px !important;
+  width: 38px;
+  height: 38px;
+  color: #17407e;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 2px 8px rgba(23, 64, 126, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-text {
+  font-family: 'Roboto Slab', 'Roboto', Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-shadow: none;
+  text-transform: none;
+  line-height: 1.1;
+  margin-left: 2px;
+}
+
+@media (max-width: 900px) {
+  .brand-text {
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+  }
+  mat-toolbar.app-toolbar {
+    padding: 0 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-text {
+    font-size: 0.92rem;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .brand-icon {
+    font-size: 20px !important;
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+  }
 }
 
 .toolbar-spacer {
@@ -223,6 +285,33 @@ mat-card {
     margin-top: 16px;
     padding-left: 16px;
     border-left: 2px solid var(--mat-sys-color-primary-container);
+}
+
+.toolbar-actions button {
+  color: #fff !important;
+  background: transparent;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background 0.2s;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.toolbar-actions button:focus, .toolbar-actions button:hover {
+  background: rgba(255,255,255,0.10);
+  color: #fff !important;
+}
+
+.toolbar-actions mat-icon {
+  color: #fff !important;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.toolbar-actions .button-text {
+  color: #fff !important;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 
