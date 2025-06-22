@@ -74,8 +74,32 @@
         </mat-card-content>
       </mat-card>
 
+      <!-- Resume Download -->
+      <mat-card class="info-section" *ngIf="hasResume()">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>description</mat-icon>
+            Currículo
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="resume-info">
+            <p>
+              <strong>Ficheiro:</strong> 
+              <span>{{ getResumeFileName() }}</span>
+            </p>
+            <div class="resume-actions">
+              <button mat-stroked-button color="primary" (click)="downloadResume()">
+                <mat-icon>download</mat-icon>
+                Descarregar Currículo
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
       <!-- Professional Experience -->
-      <mat-card class="info-section" *ngIf="candidate.experience && candidate.experience.length > 0">
+      <mat-card class="info-section" *ngIf="candidate.experiences && candidate.experiences.length > 0">
         <mat-card-header>
           <mat-card-title>
             <mat-icon>work_outline</mat-icon>
@@ -85,9 +109,9 @@
         </mat-card-header>
         <mat-card-content>
           <div class="experience-list">
-            <div *ngFor="let exp of candidate.experience" class="experience-item">
+            <div *ngFor="let exp of candidate.experiences" class="experience-item">
               <div class="experience-header">
-                <h4>{{ exp.position || 'Cargo não informado' }}</h4>
+                <h4>{{ exp.role || 'Cargo não informado' }}</h4>
                 <span class="experience-duration">{{ exp.years || 0 }} anos</span>
               </div>
               <p class="experience-company">
@@ -129,14 +153,14 @@
         <mat-card-content>
           <div class="education-list">
             <div *ngFor="let edu of candidate.education" class="education-item">
-              <h4>{{ edu.degree || 'Curso não informado' }}</h4>
+              <h4>{{ edu.course || 'Curso não informado' }}</h4>
               <p class="education-institution">
                 <mat-icon class="institution-icon">account_balance</mat-icon>
                 {{ edu.institution || 'Instituição não informada' }}
               </p>
-              <p class="education-year" *ngIf="edu.year">
-                <mat-icon class="year-icon">event</mat-icon>
-                {{ edu.year }}
+              <p class="education-level" *ngIf="edu.level">
+                <mat-icon class="level-icon">layers</mat-icon>
+                Nível: {{ edu.level }}
               </p>
             </div>
           </div>
@@ -144,7 +168,7 @@
       </mat-card>
 
       <!-- No Information Available -->
-      <div *ngIf="!candidate.experience?.length && !candidate.skills?.length && !candidate.education?.length" 
+      <div *ngIf="!candidate.experiences?.length && !candidate.skills?.length && !candidate.education?.length" 
            class="no-additional-info">
         <mat-icon>info</mat-icon>
         <p>Informações adicionais não disponíveis para este candidato.</p>

@@ -43,12 +43,31 @@ export class CandidateProfileDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  hasResume(): boolean {
+    return !!this.candidate?.resume_pdf_path;
+  }
+
+  getResumeFileName(): string {
+    if (!this.candidate?.resume_pdf_path) {
+      return '';
+    }
+    const path = this.candidate.resume_pdf_path;
+    const separator = path.includes('/') ? '/' : '\\';
+    return path.substring(path.lastIndexOf(separator) + 1);
+  }
+
+  downloadResume(): void {
+    if (this.hasResume()) {
+      window.open(this.candidate.resume_pdf_path, '_blank');
+    }
+  }
+
   getExperienceYears(): number {
-    if (!this.candidate?.experience || !Array.isArray(this.candidate.experience)) {
+    if (!this.candidate?.experiences || !Array.isArray(this.candidate.experiences)) {
       return 0;
     }
     
-    return this.candidate.experience.reduce((total: number, exp: any) => {
+    return this.candidate.experiences.reduce((total: number, exp: any) => {
       return total + (exp.years || 0);
     }, 0);
   }
