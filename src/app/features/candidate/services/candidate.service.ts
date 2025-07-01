@@ -59,19 +59,25 @@ export class CandidateService {
     if (!currentUser || !currentUser.id) {
       return of([]);
     }
-    // Assuming the API service method is getApplications
-    return this.apiService.getApplications({ candidateId: currentUser.id });
+    // Use the specific endpoint for getting applications by candidate ID
+    return this.apiService.getApplicationsByCandidateId(currentUser.id);
   }
 
   // Method to apply for a vacancy
   applyToVacancy(candidateId: number, vacancyId: number): Observable<any> {
     // First, check if the candidate has already applied for this vacancy
-    return this.apiService.getApplications({ candidateId: candidateId, vacancyId: vacancyId }).pipe(
+    return this.apiService.getApplicationsByCandidateId(candidateId).pipe(
       switchMap(existingApplications => {
-        if (existingApplications && existingApplications.length > 0) {
+        // Check if any existing application is for this vacancy
+        const hasApplied = existingApplications && existingApplications.some(app => 
+          app.vacancyId == vacancyId || app.vacancy_id == vacancyId
+        );
+        
+        if (hasApplied) {
           // Candidate has already applied
           return throwError(() => new Error('Já se candidatou a esta vaga.'));
         }
+        
         // If not applied, create the application object
         const applicationData = {
           candidateId: candidateId,

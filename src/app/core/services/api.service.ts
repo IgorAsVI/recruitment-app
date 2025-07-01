@@ -4,11 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vacancy } from '../../features/vacancies/models/vacancy.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000'; // Default JSON Server URL
+  private apiUrl = 'http://localhost:8080/api/v1'; // Updated to use port 8080
 
   constructor(private http: HttpClient) { }
 
@@ -31,23 +32,23 @@ export class ApiService {
 
   // Candidate methods
   getCandidates(params?: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/candidates`, { params });
+    return this.http.get<any[]>(`${this.apiUrl}/candidato`, { params });
   }
 
   getCandidateById(id: number | string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/candidates/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/candidato/${id}`);
   }
 
   addCandidate(candidate: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/candidates`, candidate);
+    return this.http.post<any>(`${this.apiUrl}/candidato`, candidate);
   }
 
   updateCandidate(id: number | string, candidate: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/candidates/${id}`, candidate);
+    return this.http.put<any>(`${this.apiUrl}/candidato/${id}`, candidate);
   }
 
   updateCandidateResumePath(candidateId: string, resumePath: string): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/candidates/${candidateId}`, { resume_pdf_path: resumePath });
+    return this.http.put<any>(`${this.apiUrl}/candidato/${candidateId}`, { resume_pdf_path: resumePath });
   }
 
   // RH Users methods
@@ -57,44 +58,48 @@ export class ApiService {
 
   // Vacancy methods
   getVacancies(params?: any): Observable<Vacancy[]> {
-    return this.http.get<Vacancy[]>(`${this.apiUrl}/vacancies`, { params });
+    return this.http.get<Vacancy[]>(`${this.apiUrl}/vaga`, { params });
   }
 
   getVacancyById(id: number): Observable<Vacancy> {
-    return this.http.get<Vacancy>(`${this.apiUrl}/vacancies/${id}`);
+    return this.http.get<Vacancy>(`${this.apiUrl}/vaga/${id}`);
   }
 
   createVacancy(vacancy: any): Observable<Vacancy> {
-    return this.http.post<Vacancy>(`${this.apiUrl}/vacancies`, vacancy);
+    return this.http.post<Vacancy>(`${this.apiUrl}/vaga`, vacancy);
   }
 
   updateVacancy(id: number, vacancy: any): Observable<Vacancy> {
-    return this.http.put<Vacancy>(`${this.apiUrl}/vacancies/${id}`, vacancy);
+    return this.http.put<Vacancy>(`${this.apiUrl}/vaga/${id}`, vacancy);
   }
 
   deleteVacancy(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/vacancies/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/vaga/${id}`);
   }
 
   // Application methods
   getApplications(params?: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/applications`, { params });
+    return this.http.get<any[]>(`${this.apiUrl}/application`, { params });
   }
 
   getApplicationsByCandidateId(candidateId: number | string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/applications?candidateId=${candidateId}`);
+    return this.http.get<any[]>(`${this.apiUrl}/application/candidato/${candidateId}`);
+  }
+
+  getApplicationsByVacancyId(vacancyId: number | string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/application/vaga/${vacancyId}`);
   }
 
   addApplication(application: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/applications`, application);
+    return this.http.post<any>(`${this.apiUrl}/application`, application);
   }
 
   updateApplication(id: number | string, application: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/applications/${id}`, application);
+    return this.http.put<any>(`${this.apiUrl}/application/${id}`, application);
   }
 
   deleteApplication(id: number | string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/applications/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/application/${id}`);
   }
 }
 

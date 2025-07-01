@@ -47,7 +47,7 @@ export class RhService {
         const vacancyRequirements = vacancy.requirements || [];
 
         // 2. Get all applications for this vacancy
-        return this.apiService.getApplications({ vacancyId: vacancyId }).pipe(
+        return this.apiService.getApplicationsByVacancyId(vacancyId).pipe(
           switchMap(applications => {
             if (!applications || applications.length === 0) {
               return of([]); // No applications for this vacancy
