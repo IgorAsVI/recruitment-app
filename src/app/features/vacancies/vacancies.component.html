@@ -16,7 +16,7 @@
     <div class="section-header available-card">
       <div class="header-content">
         <h2>Vagas Disponíveis</h2>
-        <span class="vacancy-count">{{ (vacancyList?.vacancies$ | async)?.length || 0 }} vagas encontradas</span>
+        <span class="vacancy-count">{{ vacancyList?.vacancyCount || 0 }} vagas encontradas</span>
       </div>
     </div>
     

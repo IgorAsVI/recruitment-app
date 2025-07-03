@@ -14,11 +14,23 @@ export class VacanciesComponent implements OnInit {
 
   constructor(private vacancyService: VacancyService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Carregar vagas iniciais após a view ser inicializada
+    setTimeout(() => {
+      if (this.vacancyList) {
+        this.vacancyList.loadVacancies();
+      }
+    });
+  }
 
   onFilterChanged(filters: any): void {
     if (this.vacancyList) {
-      this.vacancyList.loadVacancies(filters);
+      // Se não há filtros, carregar todas as vagas
+      if (!filters || Object.keys(filters).length === 0) {
+        this.vacancyList.loadVacancies();
+      } else {
+        this.vacancyList.loadVacancies(filters);
+      }
     }
   }
 }

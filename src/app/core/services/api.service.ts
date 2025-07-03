@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -33,6 +32,10 @@ export class ApiService {
   // Candidate methods
   getCandidates(params?: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/candidato`, { params });
+  }
+
+  getCandidateByEmail(email: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/candidato`, { params: { email } });
   }
 
   getCandidateById(id: number | string): Observable<any> {

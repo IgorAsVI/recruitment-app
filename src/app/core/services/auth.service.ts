@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable, BehaviorSubject, throwError } from 'rxjs'; // Keep core imports
@@ -59,7 +58,7 @@ export class AuthService {
 
 
 
-    return this.apiService.getCandidates({ email: credentials.email }).pipe(
+    return this.apiService.getCandidateByEmail(credentials.email).pipe(
       map(users => {
         if (users.length > 0 && users[0].password === credentials.password) {
           const user = users[0];
@@ -84,33 +83,21 @@ export class AuthService {
   }
 
   register(candidateData: any): Observable<any> {
-    // Check if email already exists
-    return this.apiService.getCandidates({ email: candidateData.email }).pipe(
-      map(users => {
-        if (users.length > 0) {
-          throw new Error('Email already exists');
-        }
-        return candidateData; // Pass data if email is unique
-      }),
-      // If email is unique, proceed to add the candidate
-      tap(() => {
-         // Add default fields if not provided
-         candidateData.resume_pdf_path = null;
-         candidateData.is_reserve = false;
-         candidateData.interests = candidateData.interests || []; // Ensure interests is an array
-         candidateData.experiences = candidateData.experiences || [];
-         candidateData.education = candidateData.education || [];
-         candidateData.skills = candidateData.skills || [];
-      }),
-      // Use switchMap to chain the addCandidate call
-      switchMap((data: any) => this.apiService.addCandidate(data)),
+    // Adiciona campos padrão se não fornecidos
+    candidateData.resume_pdf_path = null;
+    candidateData.is_reserve = false;
+    candidateData.interests = candidateData.interests || [];
+    candidateData.experiences = candidateData.experiences || [];
+    candidateData.education = candidateData.education || [];
+    candidateData.skills = candidateData.skills || [];
+
+    return this.apiService.addCandidate(candidateData).pipe(
       catchError(error => {
         console.error('Registration failed:', error);
-        // Handle specific errors like 'Email already exists'
-        if (error.message === 'Email already exists') {
-          return throwError(() => new Error('This email address is already registered.'));
+        if (error.status === 409 && error.error === 'email already exists') {
+          return throwError(() => new Error('Este e-mail já está cadastrado.'));
         }
-        return throwError(() => new Error('Registration failed. Please try again later.'));
+        return throwError(() => new Error('Falha no cadastro. Por favor, tente novamente mais tarde.'));
       })
     );
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VacancyService } from '../services/vacancy.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CandidateService } from '../../candidate/services/candidate.service'; // Import CandidateService
 import { AuthService } from '../../../core/services/auth.service'; // Import AuthService
 import { switchMap, take, first } from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class VacancyListComponent implements OnInit {
   successMessage = ''; // Add success message property
   currentFilters: any = {};
   userId: number | null = null;
+  vacancyCount: number = 0; // Adicionar contador de vagas
 
   constructor(
     private vacancyService: VacancyService,
@@ -27,11 +28,13 @@ export class VacancyListComponent implements OnInit {
     private authService: AuthService, // Inject AuthService
     private dialog: MatDialog
   ) {
-    this.vacancies$ = this.vacancyService.getVacancies();
+    this.vacancies$ = of([]);
   }
 
   ngOnInit(): void {
-    this.loadVacancies();
+    // Remover o carregamento automático para evitar múltiplas requisições
+    // this.loadVacancies();
+    
     // Use getCurrentUser() and access id safely
     const currentUser = this.authService.getCurrentUser();
     if (currentUser && currentUser.id) {
@@ -47,11 +50,15 @@ export class VacancyListComponent implements OnInit {
     this.vacancies$ = this.vacancyService.getVacancies(filters);
 
     this.vacancies$.subscribe({
-        next: () => this.loading = false,
+        next: (vacancies) => {
+          this.loading = false;
+          this.vacancyCount = vacancies.length; // Atualizar contador
+        },
         error: (err: any) => { // Add explicit type
             this.errorMessage = 'Falha ao carregar vagas. Por favor, tente novamente mais tarde.';
             console.error(err);
             this.loading = false;
+            this.vacancyCount = 0; // Reset contador em caso de erro
         }
     });
   }
